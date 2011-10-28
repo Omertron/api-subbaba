@@ -7,7 +7,7 @@
 	<modelVersion>4.0.0</modelVersion>
   <groupId>com.moviejukebox</groupId>
   <artifactId>apisubbaba</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>API-SubBaba</name>
   <description>API for Sub-Baba.com</description>
   <dependencies>
