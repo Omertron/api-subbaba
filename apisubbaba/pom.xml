@@ -13,9 +13,32 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.moviejukebox</groupId>
     <artifactId>apisubbaba</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <name>API-SubBaba</name>
     <description>API for Sub-Baba.com</description>
+
+    <issueManagement>
+        <system>Google Code</system>
+        <url>http://code.google.com/p/api-subbaba/issues/list</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>Hudson CI</system>
+        <url>http://jenkins.omertron.com/job/API-SubBaba/</url>
+    </ciManagement>
+
+    <scm>
+        <connection>scm:svn:http://api-subbaba.googlecode.com/svn/trunk/apisubbaba</connection>
+        <developerConnection>scm:svn:https://api-subbaba.googlecode.com/svn/trunk/apisubbaba</developerConnection>
+        <url>http://code.google.com/p/api-subbaba/source/browse/trunk/apisubbaba</url>
+    </scm>
+
+    <properties>
+        <skipTests>true</skipTests>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <distribution.format>zip</distribution.format>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -37,6 +60,7 @@
             <version>1.2.16</version>
         </dependency>
     </dependencies>
+
     <reporting>
         <plugins>
             <plugin>
@@ -46,6 +70,7 @@
             </plugin>
         </plugins>
     </reporting>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -62,12 +87,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <properties>
-        <skipTests>true</skipTests>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <distribution.format>zip</distribution.format>
-    </properties>
 
     <build>
         <pluginManagement>
@@ -171,7 +190,7 @@
                 </configuration>
             </plugin>
 
-			<!-- To skip tests by default -->
+            <!-- To skip tests by default -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -207,6 +226,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -225,11 +245,13 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
             </plugin>
         </plugins>
+
         <finalName>${project.artifactId}-${project.version}-r${buildNumber}</finalName>
 
     </build>
@@ -262,9 +284,4 @@
         </profile>
     </profiles>
 
-    <scm>
-        <connection>scm:svn:http://svn.sonatype.org/spice/tags/apisubbaba-1.0</connection>
-        <developerConnection>scm:svn:https://svn.sonatype.org/spice/tags/apisubbaba-1.0</developerConnection>
-        <url>http://svn.sonatype.org/spice/tags/apisubbaba-1.0</url>
-    </scm>
 </project>
