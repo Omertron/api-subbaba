@@ -1,21 +1,20 @@
 /*
  *      Copyright (c) 2004-2012 YAMJ Members
- *      http://code.google.com/p/moviejukebox/people/list 
- *  
+ *      http://code.google.com/p/moviejukebox/people/list
+ *
  *      Web: http://code.google.com/p/moviejukebox/
- *  
+ *
  *      This software is licensed under a Creative Commons License
  *      See this page: http://code.google.com/p/moviejukebox/wiki/License
- *  
- *      For any reuse or distribution, you must make clear to others the 
- *      license terms of this work.  
+ *
+ *      For any reuse or distribution, you must make clear to others the
+ *      license terms of this work.
  */
 package com.moviejukebox.subbaba.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 public class SubBabaMovie {
     @XStreamAlias("original_name")
@@ -29,7 +28,7 @@ public class SubBabaMovie {
     public void addContent(SubBabaContent contentRecord) {
         this.content.add(contentRecord);
     }
-    
+
     public List<SubBabaContent> getContent() {
         return content;
     }
