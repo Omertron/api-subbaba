@@ -12,19 +12,19 @@
  */
 package com.moviejukebox.subbaba;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.moviejukebox.subbaba.model.SubBabaContent;
 import com.moviejukebox.subbaba.model.SubBabaFileInfo;
 import com.moviejukebox.subbaba.model.SubBabaMovie;
 import com.moviejukebox.subbaba.model.SubBabaSearchResults;
+import org.apache.log4j.Logger;
+import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
 
 public class SubBabaTest {
 
-    private static String apikey = "";
+    private static final Logger LOGGER = Logger.getLogger(SubBabaTest.class);
+    private static String apikey = "9f0942674ca1387875c0e4cad608871d";
     private SubBaba subbaba;
 
     @Before
@@ -34,6 +34,8 @@ public class SubBabaTest {
 
     @Test
     public void testSearchbyEnglishName() {
+        LOGGER.info("SearchbyEnglishName");
+        
         SubBabaMovie sbm = subbaba.searchByEnglishName("Alice In Wonderland", SubBaba.TYPE_POSTERS);
         assertTrue(sbm != null);
         assertTrue(sbm.getId() == 2606);
@@ -41,6 +43,8 @@ public class SubBabaTest {
 
     @Test
     public void testSearchByImdbId() {
+        LOGGER.info("SearchByImdbId");
+
         SubBabaMovie sbm = subbaba.searchByImdbId("tt1014759", SubBaba.TYPE_POSTERS);
         assertTrue(sbm != null);
         assertTrue(sbm.getId() == 2606);
@@ -48,6 +52,8 @@ public class SubBabaTest {
 
     @Test
     public void testFetchInfoByContentId() {
+        LOGGER.info("FetchInfoByContentId");
+
         SubBabaContent sbc = subbaba.fetchInfoByContentId("5997");
         assertTrue(sbc.getUrl().length() > 0);
     }

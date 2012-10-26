@@ -1,14 +1,14 @@
 /*
  *      Copyright (c) 2004-2012 YAMJ Members
- *      http://code.google.com/p/moviejukebox/people/list 
- *  
+ *      http://code.google.com/p/moviejukebox/people/list
+ *
  *      Web: http://code.google.com/p/moviejukebox/
- *  
+ *
  *      This software is licensed under a Creative Commons License
  *      See this page: http://code.google.com/p/moviejukebox/wiki/License
- *  
- *      For any reuse or distribution, you must make clear to others the 
- *      license terms of this work.  
+ *
+ *      For any reuse or distribution, you must make clear to others the
+ *      license terms of this work.
  */
 package com.moviejukebox.subbaba;
 
@@ -16,6 +16,7 @@ import com.moviejukebox.subbaba.model.SubBabaContent;
 import com.moviejukebox.subbaba.model.SubBabaFileInfo;
 import com.moviejukebox.subbaba.model.SubBabaMovie;
 import com.moviejukebox.subbaba.model.SubBabaSearchResults;
+import com.moviejukebox.subbaba.tools.FilteringLayout;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
 import com.thoughtworks.xstream.io.xml.XppDriver;
@@ -47,6 +48,7 @@ public class SubBaba {
         }
 
         this.apiKey = apiKey;
+        FilteringLayout.addReplacementString(apiKey);
 
         initalise();
     }
@@ -129,6 +131,7 @@ public class SubBaba {
             searchUrl = null;
         }
 
+        LOGGER.info("URL: " + searchUrl);
         return searchUrl;
     }
 
