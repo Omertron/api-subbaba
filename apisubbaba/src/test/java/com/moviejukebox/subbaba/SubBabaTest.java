@@ -12,10 +12,12 @@
  */
 package com.moviejukebox.subbaba;
 
+import com.moviejukebox.subbaba.model.SearchType;
 import com.moviejukebox.subbaba.model.SubBabaContent;
 import com.moviejukebox.subbaba.model.SubBabaFileInfo;
 import com.moviejukebox.subbaba.model.SubBabaMovie;
 import com.moviejukebox.subbaba.model.SubBabaSearchResults;
+import java.util.List;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -35,17 +37,17 @@ public class SubBabaTest {
     @Test
     public void testSearchbyEnglishName() {
         LOGGER.info("SearchbyEnglishName");
-        
-        SubBabaMovie sbm = subbaba.searchByEnglishName("Alice In Wonderland", SubBaba.TYPE_POSTERS);
-        assertTrue(sbm != null);
-        assertTrue(sbm.getId() == 2606);
+
+        List<SubBabaMovie> sbMovies = subbaba.searchByEnglishName("Alice In Wonderland", SearchType.POSTERS);
+        assertTrue(sbMovies != null);
+        assertTrue(sbMovies.get(0).getId() == 2606);
     }
 
     @Test
     public void testSearchByImdbId() {
         LOGGER.info("SearchByImdbId");
 
-        SubBabaMovie sbm = subbaba.searchByImdbId("tt1014759", SubBaba.TYPE_POSTERS);
+        SubBabaMovie sbm = subbaba.searchByImdbId("tt1014759", SearchType.POSTERS);
         assertTrue(sbm != null);
         assertTrue(sbm.getId() == 2606);
     }

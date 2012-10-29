@@ -12,6 +12,7 @@
  */
 package com.moviejukebox.subbaba;
 
+import com.moviejukebox.subbaba.model.SearchType;
 import com.moviejukebox.subbaba.model.SubBabaContent;
 import com.moviejukebox.subbaba.model.SubBabaFileInfo;
 import com.moviejukebox.subbaba.model.SubBabaMovie;
@@ -24,6 +25,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.List;
 import javax.swing.text.AbstractDocument.Content;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -37,10 +39,6 @@ public class SubBaba {
     public static final String SEARCH_NAME = "search";
     public static final String SEARCH_IMDB = "imdb";
     public static final String SEARCH_CONTENT = "get_content";
-    public static final String TYPE_ALL = "all";
-    public static final String TYPE_POSTERS = "1";
-    public static final String TYPE_DVD_COVERS = "2";
-    public static final String TYPE_CD_COVERS = "3";
 
     public SubBaba(String apiKey) {
         if (StringUtils.isBlank(apiKey)) {
@@ -95,8 +93,8 @@ public class SubBaba {
      * @param searchMode
      * @return
      */
-    public URL generateUrl(String searchTerm, String searchMode) {
-        return generateUrl(searchTerm, searchMode, null);
+    private URL generateUrl(String searchTerm, String searchMode) {
+        return generateUrl(searchTerm, searchMode, SearchType.ALL);
     }
 
     /**
@@ -107,7 +105,7 @@ public class SubBaba {
      * @param searchType
      * @return
      */
-    public URL generateUrl(String searchTerm, String searchMode, String searchType) {
+    private URL generateUrl(String searchTerm, String searchMode, SearchType searchType) {
         StringBuilder stringUrl = new StringBuilder("http://www.sub-baba.com/api/");
         stringUrl.append(apiKey);
         stringUrl.append("/xml/");
@@ -121,7 +119,7 @@ public class SubBaba {
         }
 
         if (searchType != null) {
-            stringUrl.append("/").append(searchType);
+            stringUrl.append("/").append(searchType.getType());
         }
 
         URL searchUrl;
@@ -142,16 +140,11 @@ public class SubBaba {
      * @param searchType
      * @return
      */
-    public SubBabaMovie searchByEnglishName(String movieName, String searchType) {
+    public List<SubBabaMovie> searchByEnglishName(String movieName, SearchType searchType) {
         URL searchUrl = generateUrl(movieName, SEARCH_NAME, searchType);
 
         SubBabaSearchResults results = (SubBabaSearchResults) xstream.fromXML(searchUrl);
-
-        if (results.getMovies().size() > 0) {
-            return results.getMovies().get(0);
-        }
-
-        return null;
+        return results.getMovies();
     }
 
     /**
@@ -161,7 +154,7 @@ public class SubBaba {
      * @param searchType
      * @return
      */
-    public SubBabaMovie searchByImdbId(String imdbId, String searchType) {
+    public SubBabaMovie searchByImdbId(String imdbId, SearchType searchType) {
         URL searchUrl = generateUrl(imdbId, SEARCH_IMDB, searchType);
 
         SubBabaSearchResults results = (SubBabaSearchResults) xstream.fromXML(searchUrl);
