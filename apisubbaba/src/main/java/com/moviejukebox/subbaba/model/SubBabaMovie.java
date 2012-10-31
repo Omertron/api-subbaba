@@ -12,21 +12,73 @@
  */
 package com.moviejukebox.subbaba.model;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 
-public class SubBabaMovie {
-    @XStreamAlias("original_name")
+@JsonRootName("movie")
+public class SubBabaMovie implements Serializable {
+
+    private static final Logger LOGGER = Logger.getLogger(SubBabaMovie.class);
+    // Serial Version
+    private static final long serialVersionUID = 1L;
+    // Object properties
+    @JsonProperty("original_name")
     private String originalName = "";
     private String type = "";
     private int id = 0;
-    @XStreamAlias("imdb_id")
+    @JsonProperty("imdb_id")
     private String imdbId = "";
     private List<SubBabaContent> content = new ArrayList<SubBabaContent>();
 
-    public void addContent(SubBabaContent contentRecord) {
-        this.content.add(contentRecord);
+    // Self referential
+    private SubBabaMovie movie;
+
+    public SubBabaMovie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(SubBabaMovie movie) {
+        this.movie = movie;
+    }
+
+    
+
+
+    public String getOriginalName() {
+        return originalName;
+    }
+
+    public void setOriginalName(String originalName) {
+        this.originalName = originalName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
     }
 
     public List<SubBabaContent> getContent() {
@@ -37,52 +89,22 @@ public class SubBabaMovie {
         this.content = content;
     }
 
-    public String getOriginalName() {
-        return originalName;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getImdbId() {
-        return imdbId;
-    }
-
-    public void setOriginalName(String originalName) {
-        this.originalName = originalName;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setImdbId(String imdbId) {
-        this.imdbId = imdbId;
-    }
-
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("[SubBabaMovie=[originalName=");
-        builder.append(originalName);
-        builder.append("][type=");
-        builder.append(type);
-        builder.append("][id=");
-        builder.append(id);
-        builder.append("][imdbId=");
-        builder.append(imdbId);
-        builder.append("][content=");
-        builder.append(content);
-        builder.append("]]");
-        return builder.toString();
+        return "SubBabaMovie{" + "originalName=" + originalName + ", type=" + type + ", id=" + id + ", imdbId=" + imdbId + ", content=" + content + '}';
+    }
+
+    /**
+     * Handle unknown properties and print a message
+     *
+     * @param key
+     * @param value
+     */
+    @JsonAnySetter
+    public void handleUnknown(String key, Object value) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Unknown property: '").append(key);
+        sb.append("' value: '").append(value).append("'");
+        LOGGER.trace(sb.toString());
     }
 }
