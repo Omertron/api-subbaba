@@ -7,12 +7,12 @@
  *      For any reuse or distribution, you must make clear to others the
  *      license terms of this work.
  */
-package com.moviejukebox.subbaba.wrapper;
+package com.omertron.subbabaapi.wrapper;
 
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.moviejukebox.subbaba.model.SubBabaContent;
-import com.moviejukebox.subbaba.model.SubBabaMovie;
+import com.omertron.subbabaapi.model.SubBabaContent;
+import com.omertron.subbabaapi.model.SubBabaMovie;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;

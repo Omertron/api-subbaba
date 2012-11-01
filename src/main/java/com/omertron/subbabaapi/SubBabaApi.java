@@ -7,14 +7,14 @@
  *      For any reuse or distribution, you must make clear to others the
  *      license terms of this work.
  */
-package com.moviejukebox.subbaba;
+package com.omertron.subbabaapi;
 
-import com.moviejukebox.subbaba.model.SearchType;
-import com.moviejukebox.subbaba.model.SubBabaContent;
-import com.moviejukebox.subbaba.model.SubBabaMovie;
-import com.moviejukebox.subbaba.tools.ApiBuilder;
-import com.moviejukebox.subbaba.tools.FilteringLayout;
-import com.moviejukebox.subbaba.wrapper.SubBabaWrapper;
+import com.omertron.subbabaapi.model.SearchType;
+import com.omertron.subbabaapi.model.SubBabaContent;
+import com.omertron.subbabaapi.model.SubBabaMovie;
+import com.omertron.subbabaapi.tools.ApiBuilder;
+import com.omertron.subbabaapi.tools.FilteringLayout;
+import com.omertron.subbabaapi.wrapper.SubBabaWrapper;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;

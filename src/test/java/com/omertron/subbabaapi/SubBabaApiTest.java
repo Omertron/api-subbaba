@@ -1,9 +1,10 @@
-package com.moviejukebox.subbaba;
+package com.omertron.subbabaapi;
 
-import com.moviejukebox.subbaba.model.SearchType;
-import com.moviejukebox.subbaba.model.SubBabaContent;
-import com.moviejukebox.subbaba.model.SubBabaMovie;
-import com.moviejukebox.subbaba.tools.FilteringLayout;
+import com.omertron.subbabaapi.SubBabaApi;
+import com.omertron.subbabaapi.model.SearchType;
+import com.omertron.subbabaapi.model.SubBabaContent;
+import com.omertron.subbabaapi.model.SubBabaMovie;
+import com.omertron.subbabaapi.tools.FilteringLayout;
 import java.util.List;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;

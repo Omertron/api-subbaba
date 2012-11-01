@@ -7,7 +7,7 @@
  *      For any reuse or distribution, you must make clear to others the
  *      license terms of this work.
  */
-package com.moviejukebox.subbaba.tools;
+package com.omertron.subbabaapi.tools;
 
 import java.io.BufferedReader;
 import java.io.IOException;

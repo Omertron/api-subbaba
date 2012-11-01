@@ -7,18 +7,18 @@
  *      For any reuse or distribution, you must make clear to others the
  *      license terms of this work.
  */
-package com.moviejukebox.subbaba.tools;
+package com.omertron.subbabaapi.tools;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.moviejukebox.subbaba.model.SearchFunction;
-import com.moviejukebox.subbaba.model.SearchType;
-import com.moviejukebox.subbaba.model.SubBabaContent;
-import com.moviejukebox.subbaba.model.SubBabaMovie;
-import com.moviejukebox.subbaba.wrapper.SubBabaWrapper;
+import com.omertron.subbabaapi.model.SearchFunction;
+import com.omertron.subbabaapi.model.SearchType;
+import com.omertron.subbabaapi.model.SubBabaContent;
+import com.omertron.subbabaapi.model.SubBabaMovie;
+import com.omertron.subbabaapi.wrapper.SubBabaWrapper;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
