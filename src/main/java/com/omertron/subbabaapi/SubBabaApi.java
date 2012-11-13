@@ -14,7 +14,6 @@ import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaMovie;
 import com.omertron.subbabaapi.tools.ApiBuilder;
 import com.omertron.subbabaapi.tools.FilteringLayout;
-import com.omertron.subbabaapi.wrapper.SubBabaWrapper;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
