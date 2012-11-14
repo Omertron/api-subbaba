@@ -14,6 +14,7 @@ import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaMovie;
 import com.omertron.subbabaapi.tools.ApiBuilder;
 import com.omertron.subbabaapi.tools.FilteringLayout;
+import com.omertron.subbabaapi.tools.WebBrowser;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -85,5 +86,31 @@ public class SubBabaApi {
             LOGGER.info(sbc.toString());
         }
         return sbc;
+    }
+
+    /**
+     * Set the web browser proxy information
+     *
+     * @param host
+     * @param port
+     * @param username
+     * @param password
+     */
+    public void setProxy(String host, String port, String username, String password) {
+        WebBrowser.setProxyHost(host);
+        WebBrowser.setProxyPort(port);
+        WebBrowser.setProxyUsername(username);
+        WebBrowser.setProxyPassword(password);
+    }
+
+    /**
+     * Set the web browser timeout settings
+     *
+     * @param webTimeoutConnect
+     * @param webTimeoutRead
+     */
+    public void setTimeout(int webTimeoutConnect, int webTimeoutRead) {
+        WebBrowser.setWebTimeoutConnect(webTimeoutConnect);
+        WebBrowser.setWebTimeoutRead(webTimeoutRead);
     }
 }
