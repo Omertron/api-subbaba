@@ -10,9 +10,7 @@
 package com.omertron.subbabaapi.tools;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omertron.subbabaapi.model.SearchFunction;
 import com.omertron.subbabaapi.model.SearchType;
@@ -123,27 +121,6 @@ public final class ApiBuilder {
             LOGGER.warn(LOGMESSAGE + "JsonParseException: " + ex.getMessage());
         } catch (JsonMappingException ex) {
             LOGGER.warn(LOGMESSAGE + "JsonMappingException: " + ex.getMessage());
-        } catch (IOException ex) {
-            LOGGER.warn(LOGMESSAGE + "IOException: " + ex.getMessage());
-        }
-        return null;
-    }
-
-    /**
-     * Method to get JSON Node from the search URL
-     *
-     * @param searchUrl
-     * @return
-     * @throws FanartTvException
-     */
-    private static JsonNode getJsonNode(URL searchUrl) {
-        String webPage;
-        try {
-            webPage = WebBrowser.request(searchUrl);
-            // Strip the wrapper from the json returned
-            return mapper.readTree(webPage);
-        } catch (JsonProcessingException ex) {
-            LOGGER.warn(LOGMESSAGE + "JsonParseException: " + ex.getMessage());
         } catch (IOException ex) {
             LOGGER.warn(LOGMESSAGE + "IOException: " + ex.getMessage());
         }
