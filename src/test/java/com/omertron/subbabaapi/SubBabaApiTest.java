@@ -1,6 +1,5 @@
 package com.omertron.subbabaapi;
 
-import com.omertron.subbabaapi.SubBabaApi;
 import com.omertron.subbabaapi.model.SearchType;
 import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaMovie;
@@ -10,10 +9,10 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class SubBabaApiTest {
 
