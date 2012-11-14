@@ -33,25 +33,6 @@ public class SubBabaApi {
     }
 
     /**
-     * Output the API version information to the debug log
-     */
-    public static void showVersion() {
-        String apiTitle = SubBabaApi.class.getPackage().getSpecificationTitle();
-
-        if (StringUtils.isNotBlank(apiTitle)) {
-            String apiVersion = SubBabaApi.class.getPackage().getSpecificationVersion();
-            String apiRevision = SubBabaApi.class.getPackage().getImplementationVersion();
-            StringBuilder sv = new StringBuilder();
-            sv.append(apiTitle).append(" ");
-            sv.append(apiVersion).append(" r");
-            sv.append(apiRevision);
-            LOGGER.debug(sv.toString());
-        } else {
-            LOGGER.debug("API-SubBaba version/revision information not available");
-        }
-    }
-
-    /**
      * Use the English name of a movie to search for posters
      *
      * @param movieName

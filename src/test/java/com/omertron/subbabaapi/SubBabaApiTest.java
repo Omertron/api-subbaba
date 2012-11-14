@@ -29,8 +29,6 @@ public class SubBabaApiTest {
     @BeforeClass
     public static void setUpClass() {        // Set the logger level to TRACE
         Logger.getRootLogger().setLevel(Level.TRACE);
-        // Show the version of the API
-        SubBabaApi.showVersion();
     }
 
     @AfterClass
