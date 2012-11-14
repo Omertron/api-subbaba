@@ -43,9 +43,6 @@ public class SubBabaMovie implements Serializable {
         this.movie = movie;
     }
 
-
-
-
     public String getOriginalName() {
         return originalName;
     }
@@ -88,7 +85,7 @@ public class SubBabaMovie implements Serializable {
 
     @Override
     public String toString() {
-        return "SubBabaMovie{" + "originalName=" + originalName + ", type=" + type + ", id=" + id + ", imdbId=" + imdbId + ", content=" + content + '}';
+        return "SubBabaMovie{" + "originalName=" + originalName + ", type=" + type + ", id=" + id + ", imdbId=" + imdbId + ", content=" + content + ", movie=" + movie + '}';
     }
 
     /**
