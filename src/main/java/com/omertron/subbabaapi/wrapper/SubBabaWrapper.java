@@ -12,8 +12,8 @@ package com.omertron.subbabaapi.wrapper;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.omertron.subbabaapi.model.SubBabaContent;
-import com.omertron.subbabaapi.model.SubBabaMovie;
-import java.util.ArrayList;
+import com.omertron.subbabaapi.model.SubBabaResult;
+import java.util.Collections;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -26,55 +26,65 @@ public class SubBabaWrapper {
     private int id = 0;
     private String imdbId = "";
     @JsonProperty("results")
-    private List<SubBabaMovie> movies = new ArrayList<SubBabaMovie>();  // Used in searchByEnglishName & searchByImdbId methods
-    private SubBabaContent content = new SubBabaContent();  // Used in the fetchInfoByContentId method
+    private List<SubBabaResult> results = Collections.EMPTY_LIST;
+    @JsonProperty("content")
+    private SubBabaContent content = null;
 
-    public String getSearchTerm() {
-        return searchTerm;
-    }
-
+    //<editor-fold defaultstate="collapsed" desc="Setter Methods">
     public void setSearchTerm(String searchTerm) {
         this.searchTerm = searchTerm;
-    }
-
-    public int getTotalResults() {
-        return totalResults;
     }
 
     public void setTotalResults(int totalResults) {
         this.totalResults = totalResults;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getImdbId() {
-        return imdbId;
     }
 
     public void setImdbId(String imdbId) {
         this.imdbId = imdbId;
     }
 
-    public List<SubBabaMovie> getMovies() {
-        return movies;
+    public void setResults(List<SubBabaResult> results) {
+        this.results = results;
     }
 
-    public void setMovies(List<SubBabaMovie> movies) {
-        this.movies = movies;
+    public void setContent(SubBabaContent content) {
+        this.content = content;
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Getter Methdods">
+    public String getSearchTerm() {
+        return searchTerm;
+    }
+
+    public int getTotalResults() {
+        return totalResults;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public List<SubBabaResult> getResults() {
+        return results;
     }
 
     public SubBabaContent getContent() {
         return content;
     }
+    //</editor-fold>
 
-    public void setContent(SubBabaContent content) {
-        this.content = content;
+    @Override
+    public String toString() {
+        return "SubBabaWrapper{" + "searchTerm=" + searchTerm + ", totalResults=" + totalResults + ", id=" + id + ", imdbId=" + imdbId + ", results=" + results + ", content=" + content + '}';
     }
 
     /**

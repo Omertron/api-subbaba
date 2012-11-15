@@ -16,12 +16,14 @@ import com.omertron.subbabaapi.model.SearchFunction;
 import com.omertron.subbabaapi.model.SearchType;
 import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaMovie;
+import com.omertron.subbabaapi.model.SubBabaResult;
 import com.omertron.subbabaapi.wrapper.SubBabaWrapper;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
@@ -52,7 +54,13 @@ public final class ApiBuilder {
         if (sbw == null) {
             return Collections.EMPTY_LIST;
         }
-        return sbw.getMovies();
+
+        List<SubBabaMovie> movies = new ArrayList<SubBabaMovie>();
+        for(SubBabaResult result : sbw.getResults()) {
+            movies.add(result.getMovie());
+        }
+
+        return movies;
     }
 
     /**
@@ -71,12 +79,13 @@ public final class ApiBuilder {
         }
     }
 
-    public static List<SubBabaMovie> searchByImdbId(String query, SearchType searchType) {
+    public static SubBabaMovie searchByImdbId(String query, SearchType searchType) {
         SubBabaWrapper sbw = getWrapper(SubBabaWrapper.class, SearchFunction.IMDB, query, searchType);
         if (sbw == null) {
-            return Collections.EMPTY_LIST;
+            return null;
         }
-        return sbw.getMovies();
+
+        return sbw.getResults().get(0).getMovie();
     }
 
     private static URL buildUrl(SearchFunction function, String query, SearchType searchType) {

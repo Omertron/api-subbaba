@@ -49,12 +49,12 @@ public class SubBabaApiTest {
     @Test
     public void testSearchByEnglishName() {
         LOGGER.info("searchByEnglishName");
-        String movieName = "Alice In Wonderland";
+        String movieName = "Alice in Wonderland";
         SearchType searchType = SearchType.ALL;
-        List<SubBabaMovie> result = subbaba.searchByEnglishName(movieName, searchType);
+        List<SubBabaMovie> results = subbaba.searchByEnglishName(movieName, searchType);
 
-        assertNotNull("No content returned", result);
-        assertTrue("No movies returned", result.size() > 0);
+        assertNotNull("No content returned", results);
+        assertTrue("No movies returned", results.size() > 0);
     }
 
     /**
@@ -65,10 +65,9 @@ public class SubBabaApiTest {
         LOGGER.info("searchByImdbId");
         String imdbId = "tt1014759";
         SearchType searchType = SearchType.ALL;
-        List<SubBabaMovie> result = subbaba.searchByImdbId(imdbId, searchType);
+        SubBabaMovie result = subbaba.searchByImdbId(imdbId, searchType);
 
         assertNotNull("No content returned", result);
-        assertTrue("No movies returned", result.size() > 0);
     }
 
     /**

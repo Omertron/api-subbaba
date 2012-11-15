@@ -23,29 +23,37 @@ public class SubBabaFileInfo implements Serializable {
     private int height = 0;
     private String fileSize = "";
 
-    public int getWidth() {
-        return width;
-    }
-
+    //<editor-fold defaultstate="collapsed" desc="Setter Methods">
     public void setWidth(int width) {
         this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
     }
 
     public void setHeight(int height) {
         this.height = height;
     }
 
-    public String getFileSize() {
-        return fileSize;
-    }
-
     public void setFileSize(String fileSize) {
         this.fileSize = fileSize;
     }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Getter Methods">
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public String getFileSize() {
+        return fileSize;
+    }
+    //</editor-fold>
 
     @Override
     public String toString() {

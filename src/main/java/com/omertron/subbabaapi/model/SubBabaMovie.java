@@ -32,60 +32,57 @@ public class SubBabaMovie implements Serializable {
     private String imdbId = "";
     private List<SubBabaContent> content = new ArrayList<SubBabaContent>();
 
-    // Self referential
-    private SubBabaMovie movie;
-
-    public SubBabaMovie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(SubBabaMovie movie) {
-        this.movie = movie;
-    }
-
-    public String getOriginalName() {
-        return originalName;
-    }
-
+    //<editor-fold defaultstate="collapsed" desc="Setter Methods">
     public void setOriginalName(String originalName) {
         this.originalName = originalName;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public void setType(String type) {
         this.type = type;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getImdbId() {
-        return imdbId;
     }
 
     public void setImdbId(String imdbId) {
         this.imdbId = imdbId;
     }
 
-    public List<SubBabaContent> getContent() {
-        return content;
-    }
-
     public void setContent(List<SubBabaContent> content) {
         this.content = content;
     }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Getter Methods">
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getOriginalName() {
+        return originalName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public List<SubBabaContent> getContent() {
+        return content;
+    }
+    //</editor-fold>
 
     @Override
     public String toString() {
-        return "SubBabaMovie{" + "originalName=" + originalName + ", type=" + type + ", id=" + id + ", imdbId=" + imdbId + ", content=" + content + ", movie=" + movie + '}';
+        return "SubBabaMovie{" + "originalName=" + originalName + ", type=" + type + ", id=" + id + ", imdbId=" + imdbId + ", content=" + content + '}';
     }
 
     /**

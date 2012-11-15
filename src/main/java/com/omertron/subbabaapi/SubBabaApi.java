@@ -50,7 +50,7 @@ public class SubBabaApi {
      * @param searchType
      * @return
      */
-    public List<SubBabaMovie> searchByImdbId(String imdbId, SearchType searchType) {
+    public SubBabaMovie searchByImdbId(String imdbId, SearchType searchType) {
         return ApiBuilder.searchByImdbId(imdbId, searchType);
     }
 
