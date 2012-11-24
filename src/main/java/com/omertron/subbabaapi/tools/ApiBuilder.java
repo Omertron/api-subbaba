@@ -56,7 +56,7 @@ public final class ApiBuilder {
         }
 
         List<SubBabaMovie> movies = new ArrayList<SubBabaMovie>();
-        for(SubBabaResult result : sbw.getResults()) {
+        for (SubBabaResult result : sbw.getResults()) {
             movies.add(result.getMovie());
         }
 
@@ -81,8 +81,8 @@ public final class ApiBuilder {
 
     public static SubBabaMovie searchByImdbId(String query, SearchType searchType) {
         SubBabaWrapper sbw = getWrapper(SubBabaWrapper.class, SearchFunction.IMDB, query, searchType);
-        if (sbw == null) {
-            return null;
+        if ((sbw == null) || sbw.getResults().isEmpty()) {
+            return new SubBabaMovie();
         }
 
         return sbw.getResults().get(0).getMovie();

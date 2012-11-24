@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -30,7 +31,7 @@ public class SubBabaMovie implements Serializable {
     private int id = 0;
     @JsonProperty("imdb_id")
     private String imdbId = "";
-    private List<SubBabaContent> content = new ArrayList<SubBabaContent>();
+    private List<SubBabaContent> content = Collections.EMPTY_LIST;
 
     //<editor-fold defaultstate="collapsed" desc="Setter Methods">
     public void setOriginalName(String originalName) {
