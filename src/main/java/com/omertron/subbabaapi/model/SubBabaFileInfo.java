@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 
 public class SubBabaFileInfo implements Serializable {
 
-    private static final Logger LOGGER = Logger.getLogger(SubBabaFileInfo.class);
+    private static final Logger logger = Logger.getLogger(SubBabaFileInfo.class);
     // Serial Version
     private static final long serialVersionUID = 1L;
     // Object properties
@@ -71,6 +71,6 @@ public class SubBabaFileInfo implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Unknown property: '").append(key);
         sb.append("' value: '").append(value).append("'");
-        LOGGER.trace(sb.toString());
+        logger.trace(sb.toString());
     }
 }

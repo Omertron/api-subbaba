@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 
 public class SubBabaResult {
 
-    private static final Logger LOGGER = Logger.getLogger(SubBabaResult.class);
+    private static final Logger logger = Logger.getLogger(SubBabaResult.class);
     // Serial Version
     private static final long serialVersionUID = 1L;
     // Object properties
@@ -44,6 +44,6 @@ public class SubBabaResult {
         StringBuilder sb = new StringBuilder();
         sb.append("Unknown property: '").append(key);
         sb.append("' value: '").append(value).append("'");
-        LOGGER.trace(sb.toString());
+        logger.trace(sb.toString());
     }
 }

@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 @JsonRootName("movie")
 public class SubBabaMovie implements Serializable {
 
-    private static final Logger LOGGER = Logger.getLogger(SubBabaMovie.class);
+    private static final Logger logger = Logger.getLogger(SubBabaMovie.class);
     // Serial Version
     private static final long serialVersionUID = 1L;
     // Object properties
@@ -96,6 +96,6 @@ public class SubBabaMovie implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Unknown property: '").append(key);
         sb.append("' value: '").append(value).append("'");
-        LOGGER.trace(sb.toString());
+        logger.trace(sb.toString());
     }
 }

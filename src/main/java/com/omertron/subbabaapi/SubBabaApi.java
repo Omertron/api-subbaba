@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
 
 public class SubBabaApi {
 
-    private static final Logger LOGGER = Logger.getLogger(SubBabaApi.class);
+    private static final Logger logger = Logger.getLogger(SubBabaApi.class);
 
     public SubBabaApi(String apiKey) {
         if (StringUtils.isBlank(apiKey)) {
@@ -64,7 +64,7 @@ public class SubBabaApi {
         SubBabaContent sbc = ApiBuilder.fetchInfoByContentId(contentId);
 
         if (sbc != null) {
-            LOGGER.info(sbc.toString());
+            logger.info(sbc.toString());
         }
         return sbc;
     }

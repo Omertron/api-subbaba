@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 
 public class SubBabaWrapper {
 
-    private static final Logger LOGGER = Logger.getLogger(SubBabaWrapper.class);
+    private static final Logger logger = Logger.getLogger(SubBabaWrapper.class);
     // Object properties
     private String searchTerm = "";
     private int totalResults = 0;
@@ -98,6 +98,6 @@ public class SubBabaWrapper {
         StringBuilder sb = new StringBuilder();
         sb.append("Unknown property: '").append(key);
         sb.append("' value: '").append(value).append("'");
-        LOGGER.trace(sb.toString());
+        logger.trace(sb.toString());
     }
 }

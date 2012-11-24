@@ -16,7 +16,7 @@ import org.junit.Test;
 
 public class SubBabaApiTest {
 
-    private static final Logger LOGGER = Logger.getLogger(SubBabaApiTest.class);
+    private static final Logger logger = Logger.getLogger(SubBabaApiTest.class);
     private static final String APIKEY = "9f0942674ca1387875c0e4cad608871d";
     private SubBabaApi subbaba;
 
@@ -48,7 +48,7 @@ public class SubBabaApiTest {
      */
     @Test
     public void testSearchByEnglishName() {
-        LOGGER.info("searchByEnglishName");
+        logger.info("searchByEnglishName");
         String movieName = "Alice in Wonderland";
         SearchType searchType = SearchType.ALL;
         List<SubBabaMovie> results = subbaba.searchByEnglishName(movieName, searchType);
@@ -62,7 +62,7 @@ public class SubBabaApiTest {
      */
     @Test
     public void testSearchByImdbId() {
-        LOGGER.info("searchByImdbId");
+        logger.info("searchByImdbId");
         String imdbId = "tt1014759";
         SearchType searchType = SearchType.ALL;
         SubBabaMovie result = subbaba.searchByImdbId(imdbId, searchType);
@@ -75,7 +75,7 @@ public class SubBabaApiTest {
      */
     @Test
     public void testFetchInfoByContentId() {
-        LOGGER.info("fetchInfoByContentId");
+        logger.info("fetchInfoByContentId");
         String contentId = "5996";
         SubBabaContent result = subbaba.fetchInfoByContentId(contentId);
 
