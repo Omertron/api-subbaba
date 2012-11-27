@@ -81,11 +81,18 @@ public final class ApiBuilder {
 
     public static SubBabaMovie searchByImdbId(String query, SearchType searchType) {
         SubBabaWrapper sbw = getWrapper(SubBabaWrapper.class, SearchFunction.IMDB, query, searchType);
-        if ((sbw == null) || sbw.getResults().isEmpty()) {
+        if (sbw == null) {
             return new SubBabaMovie();
         }
 
-        return sbw.getResults().get(0).getMovie();
+        List<SubBabaResult> listResults = sbw.getResults();
+        if (listResults == null || listResults.isEmpty()) {
+            return new SubBabaMovie();
+        } else {
+            SubBabaResult sbResult = listResults.get(0);
+            SubBabaMovie sbMovie = sbResult.getMovie();
+            return sbMovie;
+        }
     }
 
     private static URL buildUrl(SearchFunction function, String query, SearchType searchType) {

@@ -18,7 +18,7 @@ public class SubBabaResult {
     // Serial Version
     private static final long serialVersionUID = 1L;
     // Object properties
-    private SubBabaMovie movie;
+    private SubBabaMovie movie = null;
 
     public SubBabaMovie getMovie() {
         return this.movie;
