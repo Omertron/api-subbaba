@@ -13,7 +13,7 @@
 
     <groupId>com.omertron</groupId>
     <artifactId>subbabaapi</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
     <name>API-SubBaba</name>
     <packaging>jar</packaging>
     <description>API for Sub-Baba.com</description>
