@@ -77,7 +77,6 @@ public final class ApiBuilder {
      * Get the single image information using the Sub-Baba ID
      *
      * @param query
-     * @return
      */
     public static SubBabaContent fetchInfoByContentId(String query) {
         SubBabaWrapper sbw = getWrapper(SubBabaWrapper.class, SearchFunction.SUBBABA, query);

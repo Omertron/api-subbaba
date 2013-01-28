@@ -39,7 +39,6 @@ public enum SearchType {
      * Set the search type from a string.
      *
      * @param type
-     * @return
      */
     public static SearchType fromString(String type) {
         if (type != null) {

@@ -38,7 +38,6 @@ public enum SearchFunction {
      * Set the search type from a string.
      *
      * @param function
-     * @return
      */
     public static SearchFunction fromString(String function) {
         if (function != null) {
