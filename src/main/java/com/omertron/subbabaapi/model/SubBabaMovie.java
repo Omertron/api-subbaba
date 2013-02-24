@@ -26,12 +26,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @JsonRootName("movie")
 public class SubBabaMovie implements Serializable {
 
-    private static final Logger logger = Logger.getLogger(SubBabaMovie.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SubBabaMovie.class);
     // Serial Version
     private static final long serialVersionUID = 1L;
     // Object properties
@@ -107,6 +108,6 @@ public class SubBabaMovie implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Unknown property: '").append(key);
         sb.append("' value: '").append(value).append("'");
-        logger.trace(sb.toString());
+        LOG.trace(sb.toString());
     }
 }

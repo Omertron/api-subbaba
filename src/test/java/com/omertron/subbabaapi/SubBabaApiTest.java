@@ -22,10 +22,9 @@ package com.omertron.subbabaapi;
 import com.omertron.subbabaapi.model.SearchType;
 import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaMovie;
-import com.omertron.subbabaapi.tools.FilteringLayout;
 import java.util.List;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -35,19 +34,18 @@ import org.junit.Test;
 
 public class SubBabaApiTest {
 
-    private static final Logger logger = Logger.getLogger(SubBabaApiTest.class);
+    private static final Logger LOG = Logger.getLogger(SubBabaApiTest.class.getSimpleName());
     private static final String APIKEY = "9f0942674ca1387875c0e4cad608871d";
     private SubBabaApi subbaba;
 
     public SubBabaApiTest() {
         subbaba = new SubBabaApi(APIKEY);
-        // Make sure the filter isn't applied to the test output
-        FilteringLayout.addReplacementString("DO_NOT_MATCH");
     }
 
     @BeforeClass
-    public static void setUpClass() {        // Set the logger level to TRACE
-        Logger.getRootLogger().setLevel(Level.TRACE);
+    public static void setUpClass() {
+        // Set the logger level to ALL
+        LOG.setLevel(Level.ALL);
     }
 
     @AfterClass
@@ -67,7 +65,7 @@ public class SubBabaApiTest {
      */
     @Test
     public void testSearchByEnglishName() {
-        logger.info("searchByEnglishName");
+        LOG.info("searchByEnglishName");
         String movieName = "Alice in Wonderland";
         SearchType searchType = SearchType.ALL;
         List<SubBabaMovie> results = subbaba.searchByEnglishName(movieName, searchType);
@@ -81,7 +79,7 @@ public class SubBabaApiTest {
      */
     @Test
     public void testSearchByImdbId() {
-        logger.info("searchByImdbId");
+        LOG.info("searchByImdbId");
         String imdbId = "tt1014759";
         SearchType searchType = SearchType.ALL;
         SubBabaMovie result = subbaba.searchByImdbId(imdbId, searchType);
@@ -94,7 +92,7 @@ public class SubBabaApiTest {
      */
     @Test
     public void testFetchInfoByContentId() {
-        logger.info("fetchInfoByContentId");
+        LOG.info("fetchInfoByContentId");
         String contentId = "5996";
         SubBabaContent result = subbaba.fetchInfoByContentId(contentId);
 

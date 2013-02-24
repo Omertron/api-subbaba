@@ -23,22 +23,21 @@ import com.omertron.subbabaapi.model.SearchType;
 import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaMovie;
 import com.omertron.subbabaapi.tools.ApiBuilder;
-import com.omertron.subbabaapi.tools.FilteringLayout;
 import com.omertron.subbabaapi.tools.WebBrowser;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SubBabaApi {
 
-    private static final Logger logger = Logger.getLogger(SubBabaApi.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SubBabaApi.class);
 
     public SubBabaApi(String apiKey) {
         if (StringUtils.isBlank(apiKey)) {
             return;
         }
 
-        FilteringLayout.addReplacementString(apiKey);
         ApiBuilder.setApiKey(apiKey);
     }
 
@@ -71,7 +70,7 @@ public class SubBabaApi {
         SubBabaContent sbc = ApiBuilder.fetchInfoByContentId(contentId);
 
         if (sbc != null) {
-            logger.info(sbc.toString());
+            LOG.info(sbc.toString());
         }
         return sbc;
     }

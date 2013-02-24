@@ -21,11 +21,12 @@ package com.omertron.subbabaapi.model;
 
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import java.io.Serializable;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SubBabaFileInfo implements Serializable {
 
-    private static final Logger logger = Logger.getLogger(SubBabaFileInfo.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SubBabaFileInfo.class);
     // Serial Version
     private static final long serialVersionUID = 1L;
     // Object properties
@@ -81,6 +82,6 @@ public class SubBabaFileInfo implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Unknown property: '").append(key);
         sb.append("' value: '").append(value).append("'");
-        logger.trace(sb.toString());
+        LOG.trace(sb.toString());
     }
 }

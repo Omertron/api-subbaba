@@ -37,11 +37,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class ApiBuilder {
 
-    private static final Logger logger = Logger.getLogger(ApiBuilder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ApiBuilder.class);
     private static final String LOGMESSAGE = "SubBabaApi: ";
     // API parts
     private static final String API_BASE = "http://www.sub-baba.com/api/";
@@ -124,11 +125,11 @@ public final class ApiBuilder {
             sbURL.append(searchType.getType());
         }
 
-        logger.trace(LOGMESSAGE + "URL = " + sbURL.toString());
+        LOG.trace(LOGMESSAGE + "URL = " + sbURL.toString());
         try {
             return new URL(sbURL.toString());
         } catch (MalformedURLException ex) {
-            logger.trace(LOGMESSAGE + "Failed to convert string to URL: " + ex.getMessage());
+            LOG.trace(LOGMESSAGE + "Failed to convert string to URL: " + ex.getMessage());
             return null;
         }
     }
@@ -143,11 +144,11 @@ public final class ApiBuilder {
             Object response = mapper.readValue(webPage, clazz);
             return clazz.cast(response);
         } catch (JsonParseException ex) {
-            logger.warn(LOGMESSAGE + "JsonParseException: " + ex.getMessage());
+            LOG.warn(LOGMESSAGE + "JsonParseException: " + ex.getMessage());
         } catch (JsonMappingException ex) {
-            logger.warn(LOGMESSAGE + "JsonMappingException: " + ex.getMessage());
+            LOG.warn(LOGMESSAGE + "JsonMappingException: " + ex.getMessage());
         } catch (IOException ex) {
-            logger.warn(LOGMESSAGE + "IOException: " + ex.getMessage());
+            LOG.warn(LOGMESSAGE + "IOException: " + ex.getMessage());
         }
         return null;
     }

@@ -25,11 +25,12 @@ import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaResult;
 import java.util.Collections;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SubBabaWrapper {
 
-    private static final Logger logger = Logger.getLogger(SubBabaWrapper.class);
+    private static final Logger logger = LoggerFactory.getLogger(SubBabaWrapper.class);
     // Object properties
     private String searchTerm = "";
     private int totalResults = 0;

@@ -20,11 +20,12 @@
 package com.omertron.subbabaapi.model;
 
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SubBabaResult {
 
-    private static final Logger logger = Logger.getLogger(SubBabaResult.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SubBabaResult.class);
     // Serial Version
     private static final long serialVersionUID = 1L;
     // Object properties
@@ -54,6 +55,6 @@ public class SubBabaResult {
         StringBuilder sb = new StringBuilder();
         sb.append("Unknown property: '").append(key);
         sb.append("' value: '").append(value).append("'");
-        logger.trace(sb.toString());
+        LOG.trace(sb.toString());
     }
 }
