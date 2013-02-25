@@ -23,18 +23,18 @@ import com.omertron.subbabaapi.model.SearchType;
 import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaMovie;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SubBabaApiTest {
 
-    private static final Logger LOG = Logger.getLogger(SubBabaApiTest.class.getSimpleName());
+    private static final Logger LOG = LoggerFactory.getLogger(SubBabaApiTest.class);
     private static final String APIKEY = "9f0942674ca1387875c0e4cad608871d";
     private SubBabaApi subbaba;
 
@@ -44,8 +44,7 @@ public class SubBabaApiTest {
 
     @BeforeClass
     public static void setUpClass() {
-        // Set the logger level to ALL
-        LOG.setLevel(Level.ALL);
+        TestLogger.Configure();
     }
 
     @AfterClass
