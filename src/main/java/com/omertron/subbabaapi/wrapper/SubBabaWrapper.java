@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 public class SubBabaWrapper {
 
-    private static final Logger logger = LoggerFactory.getLogger(SubBabaWrapper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SubBabaWrapper.class);
     // Object properties
     private String searchTerm = "";
     private int totalResults = 0;
@@ -109,6 +109,6 @@ public class SubBabaWrapper {
         StringBuilder sb = new StringBuilder();
         sb.append("Unknown property: '").append(key);
         sb.append("' value: '").append(value).append("'");
-        logger.trace(sb.toString());
+        LOG.trace(sb.toString());
     }
 }

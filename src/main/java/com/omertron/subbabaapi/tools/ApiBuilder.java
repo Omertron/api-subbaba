@@ -100,8 +100,7 @@ public final class ApiBuilder {
             return new SubBabaMovie();
         } else {
             SubBabaResult sbResult = listResults.get(0);
-            SubBabaMovie sbMovie = sbResult.getMovie();
-            return sbMovie;
+            return sbResult.getMovie();
         }
     }
 
