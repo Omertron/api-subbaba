@@ -17,17 +17,16 @@
  *      along with the SubBaba API.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.omertron.subbabaapi.model;
+package com.omertron.subbabaapi.enumerations;
 
-public enum SearchType {
+public enum SearchFunction {
+    NAME("search"),
+    IMDB("imdb"),
+    SUBBABA("get_content");
 
-    ALL("all"),
-    POSTERS("1"),
-    DVD_COVERS("2"),
-    CD_COVERS("3");
-    private String type;
+    private final String type;
 
-    private SearchType(String type) {
+    private SearchFunction(String type) {
         this.type = type;
     }
 
@@ -38,20 +37,22 @@ public enum SearchType {
     /**
      * Set the search type from a string.
      *
-     * @param type
+     * @param function
+     * @return
      */
-    public static SearchType fromString(String type) {
-        if (type != null) {
+    public static SearchFunction fromString(String function) {
+        if (function != null) {
             try {
-                for (SearchType searchType : SearchType.values()) {
-                    if (type.equalsIgnoreCase(searchType.type)) {
-                        return searchType;
+                for (SearchFunction searchFunction : SearchFunction.values()) {
+                    if (function.equalsIgnoreCase(searchFunction.type)) {
+                        return searchFunction;
                     }
                 }
             } catch (IllegalArgumentException ex) {
-                throw new IllegalArgumentException("SearchType '" + type + "' does not exist", ex);
+                throw new IllegalArgumentException("SearchFunction '" + function + "' does not exist", ex);
             }
         }
-        throw new IllegalArgumentException("SearchType is null");
+        throw new IllegalArgumentException("SearchFunction is null");
     }
+
 }

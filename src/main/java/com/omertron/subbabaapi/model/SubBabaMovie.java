@@ -19,19 +19,15 @@
  */
 package com.omertron.subbabaapi.model;
 
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @JsonRootName("movie")
-public class SubBabaMovie implements Serializable {
+public class SubBabaMovie extends AbstractJsonMapping implements Serializable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SubBabaMovie.class);
     // Serial Version
     private static final long serialVersionUID = 1L;
     // Object properties
@@ -41,7 +37,7 @@ public class SubBabaMovie implements Serializable {
     private int id = 0;
     @JsonProperty("imdb_id")
     private String imdbId = "";
-    private List<SubBabaContent> content = Collections.EMPTY_LIST;
+    private List<SubBabaContent> content = Collections.emptyList();
 
     //<editor-fold defaultstate="collapsed" desc="Setter Methods">
     public void setOriginalName(String originalName) {
@@ -90,23 +86,4 @@ public class SubBabaMovie implements Serializable {
         return content;
     }
     //</editor-fold>
-
-    @Override
-    public String toString() {
-        return "SubBabaMovie{" + "originalName=" + originalName + ", type=" + type + ", id=" + id + ", imdbId=" + imdbId + ", content=" + content + '}';
-    }
-
-    /**
-     * Handle unknown properties and print a message
-     *
-     * @param key
-     * @param value
-     */
-    @JsonAnySetter
-    public void handleUnknown(String key, Object value) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Unknown property: '").append(key);
-        sb.append("' value: '").append(value).append("'");
-        LOG.trace(sb.toString());
-    }
 }

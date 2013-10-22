@@ -19,7 +19,7 @@
  */
 package com.omertron.subbabaapi;
 
-import com.omertron.subbabaapi.model.SearchType;
+import com.omertron.subbabaapi.enumerations.SearchType;
 import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaMovie;
 import java.util.List;
@@ -36,7 +36,7 @@ public class SubBabaApiTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(SubBabaApiTest.class);
     private static final String APIKEY = "9f0942674ca1387875c0e4cad608871d";
-    private SubBabaApi subbaba;
+    private final SubBabaApi subbaba;
 
     public SubBabaApiTest() {
         subbaba = new SubBabaApi(APIKEY);

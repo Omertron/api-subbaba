@@ -19,13 +19,8 @@
  */
 package com.omertron.subbabaapi.model;
 
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+public class SubBabaResult extends AbstractJsonMapping {
 
-public class SubBabaResult {
-
-    private static final Logger LOG = LoggerFactory.getLogger(SubBabaResult.class);
     // Serial Version
     private static final long serialVersionUID = 1L;
     // Object properties
@@ -37,24 +32,5 @@ public class SubBabaResult {
 
     public void setMovie(SubBabaMovie movie) {
         this.movie = movie;
-    }
-
-    @Override
-    public String toString() {
-        return "SubBabaResults{" + "movie=" + movie + '}';
-    }
-
-    /**
-     * Handle unknown properties and print a message
-     *
-     * @param key
-     * @param value
-     */
-    @JsonAnySetter
-    public void handleUnknown(String key, Object value) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Unknown property: '").append(key);
-        sb.append("' value: '").append(value).append("'");
-        LOG.trace(sb.toString());
     }
 }

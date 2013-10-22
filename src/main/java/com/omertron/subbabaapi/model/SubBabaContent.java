@@ -19,14 +19,10 @@
  */
 package com.omertron.subbabaapi.model;
 
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import java.io.Serializable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class SubBabaContent implements Serializable {
+public class SubBabaContent extends AbstractJsonMapping implements Serializable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SubBabaContent.class);
     // Serial Version
     private static final long serialVersionUID = 1L;
     // Object properties
@@ -137,23 +133,4 @@ public class SubBabaContent implements Serializable {
         return uploadDate;
     }
     //</editor-fold>
-
-    @Override
-    public String toString() {
-        return "SubBabaContent{" + "type=" + type + ", votes=" + votes + ", points=" + points + ", rating=" + rating + ", fileInfo=" + fileInfo + ", downloads=" + downloads + ", uploaderName=" + uploaderName + ", url=" + url + ", download=" + download + ", uploadDate=" + uploadDate + '}';
-    }
-
-    /**
-     * Handle unknown properties and print a message
-     *
-     * @param key
-     * @param value
-     */
-    @JsonAnySetter
-    public void handleUnknown(String key, Object value) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Unknown property: '").append(key);
-        sb.append("' value: '").append(value).append("'");
-        LOG.trace(sb.toString());
-    }
 }

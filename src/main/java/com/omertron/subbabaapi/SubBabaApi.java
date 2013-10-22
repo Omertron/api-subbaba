@@ -19,7 +19,7 @@
  */
 package com.omertron.subbabaapi;
 
-import com.omertron.subbabaapi.model.SearchType;
+import com.omertron.subbabaapi.enumerations.SearchType;
 import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaMovie;
 import com.omertron.subbabaapi.tools.ApiBuilder;
@@ -46,6 +46,7 @@ public class SubBabaApi {
      *
      * @param movieName
      * @param searchType
+     * @return
      */
     public List<SubBabaMovie> searchByEnglishName(String movieName, SearchType searchType) {
         return ApiBuilder.searchByEnglishName(movieName, searchType);
@@ -56,6 +57,7 @@ public class SubBabaApi {
      *
      * @param imdbId
      * @param searchType
+     * @return
      */
     public SubBabaMovie searchByImdbId(String imdbId, SearchType searchType) {
         return ApiBuilder.searchByImdbId(imdbId, searchType);
@@ -65,6 +67,7 @@ public class SubBabaApi {
      * Get the specific content associated with an ID
      *
      * @param contentId
+     * @return
      */
     public SubBabaContent fetchInfoByContentId(String contentId) {
         SubBabaContent sbc = ApiBuilder.fetchInfoByContentId(contentId);

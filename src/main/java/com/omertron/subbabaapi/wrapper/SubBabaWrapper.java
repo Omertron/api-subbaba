@@ -19,25 +19,22 @@
  */
 package com.omertron.subbabaapi.wrapper;
 
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.omertron.subbabaapi.model.AbstractJsonMapping;
 import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaResult;
 import java.util.Collections;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class SubBabaWrapper {
+public class SubBabaWrapper extends AbstractJsonMapping {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SubBabaWrapper.class);
     // Object properties
     private String searchTerm = "";
     private int totalResults = 0;
     private int id = 0;
     private String imdbId = "";
     @JsonProperty("results")
-    private List<SubBabaResult> results = Collections.EMPTY_LIST;
+    private List<SubBabaResult> results = Collections.emptyList();
     @JsonProperty("content")
     private SubBabaContent content = null;
 
@@ -92,23 +89,4 @@ public class SubBabaWrapper {
         return content;
     }
     //</editor-fold>
-
-    @Override
-    public String toString() {
-        return "SubBabaWrapper{" + "searchTerm=" + searchTerm + ", totalResults=" + totalResults + ", id=" + id + ", imdbId=" + imdbId + ", results=" + results + ", content=" + content + '}';
-    }
-
-    /**
-     * Handle unknown properties and print a message
-     *
-     * @param key
-     * @param value
-     */
-    @JsonAnySetter
-    public void handleUnknown(String key, Object value) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Unknown property: '").append(key);
-        sb.append("' value: '").append(value).append("'");
-        LOG.trace(sb.toString());
-    }
 }

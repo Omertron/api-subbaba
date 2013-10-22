@@ -22,8 +22,8 @@ package com.omertron.subbabaapi.tools;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.omertron.subbabaapi.model.SearchFunction;
-import com.omertron.subbabaapi.model.SearchType;
+import com.omertron.subbabaapi.enumerations.SearchFunction;
+import com.omertron.subbabaapi.enumerations.SearchType;
 import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaMovie;
 import com.omertron.subbabaapi.model.SubBabaResult;
@@ -49,7 +49,7 @@ public final class ApiBuilder {
     private static final String API_TYPE = "/json/";
     private static final String API_SLASH = "/";
     // Jackson JSON configuration
-    private static ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ObjectMapper();
     private static String apiKey;
 
     private ApiBuilder() {
@@ -60,6 +60,13 @@ public final class ApiBuilder {
         apiKey = newApiKey;
     }
 
+    /**
+     * Search by name
+     *
+     * @param query
+     * @param searchType
+     * @return
+     */
     public static List<SubBabaMovie> searchByEnglishName(String query, SearchType searchType) {
         SubBabaWrapper sbw = getWrapper(SubBabaWrapper.class, SearchFunction.NAME, query, searchType);
         if (sbw == null) {
@@ -78,6 +85,7 @@ public final class ApiBuilder {
      * Get the single image information using the Sub-Baba ID
      *
      * @param query
+     * @return
      */
     public static SubBabaContent fetchInfoByContentId(String query) {
         SubBabaWrapper sbw = getWrapper(SubBabaWrapper.class, SearchFunction.SUBBABA, query);
@@ -89,6 +97,13 @@ public final class ApiBuilder {
         }
     }
 
+    /**
+     * Search by IMDB ID
+     *
+     * @param query
+     * @param searchType
+     * @return
+     */
     public static SubBabaMovie searchByImdbId(String query, SearchType searchType) {
         SubBabaWrapper sbw = getWrapper(SubBabaWrapper.class, SearchFunction.IMDB, query, searchType);
         if (sbw == null) {
@@ -104,6 +119,14 @@ public final class ApiBuilder {
         }
     }
 
+    /**
+     * Create the URL from the parameters
+     *
+     * @param function
+     * @param query
+     * @param searchType
+     * @return
+     */
     private static URL buildUrl(SearchFunction function, String query, SearchType searchType) {
         StringBuilder sbURL = new StringBuilder(API_BASE);
         sbURL.append(apiKey);
@@ -133,14 +156,33 @@ public final class ApiBuilder {
         }
     }
 
+    /**
+     * Get the wrapper
+     *
+     * @param <T>
+     * @param clazz
+     * @param function
+     * @param query
+     * @return
+     */
     private static <T> T getWrapper(Class<T> clazz, SearchFunction function, String query) {
         return getWrapper(clazz, function, query, null);
     }
 
+    /**
+     * Get the wrapper based on the function
+     *
+     * @param <T>
+     * @param clazz
+     * @param function
+     * @param query
+     * @param searchType
+     * @return
+     */
     private static <T> T getWrapper(Class<T> clazz, SearchFunction function, String query, SearchType searchType) {
         try {
             String webPage = WebBrowser.request(buildUrl(function, query, searchType));
-            Object response = mapper.readValue(webPage, clazz);
+            Object response = MAPPER.readValue(webPage, clazz);
             return clazz.cast(response);
         } catch (JsonParseException ex) {
             LOG.warn(LOGMESSAGE + "JsonParseException: " + ex.getMessage());
