@@ -23,22 +23,30 @@ import com.omertron.subbabaapi.enumerations.SearchType;
 import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaMovie;
 import com.omertron.subbabaapi.tools.ApiBuilder;
-import com.omertron.subbabaapi.tools.WebBrowser;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.yamj.api.common.http.CommonHttpClient;
+import org.yamj.api.common.http.DefaultPoolingHttpClient;
 
 public class SubBabaApi {
 
     private static final Logger LOG = LoggerFactory.getLogger(SubBabaApi.class);
+    private CommonHttpClient httpClient;
 
     public SubBabaApi(String apiKey) {
+        // Use a default pooling client if one is not provided
+        this(apiKey, new DefaultPoolingHttpClient());
+    }
+
+    public SubBabaApi(String apiKey, CommonHttpClient httpClient) {
         if (StringUtils.isBlank(apiKey)) {
             return;
         }
 
         ApiBuilder.setApiKey(apiKey);
+        ApiBuilder.setHttpClient(httpClient);
     }
 
     /**
@@ -87,10 +95,7 @@ public class SubBabaApi {
      * @param password
      */
     public void setProxy(String host, String port, String username, String password) {
-        WebBrowser.setProxyHost(host);
-        WebBrowser.setProxyPort(port);
-        WebBrowser.setProxyUsername(username);
-        WebBrowser.setProxyPassword(password);
+        httpClient.setProxy(host, Integer.parseInt(port), username, password);
     }
 
     /**
@@ -100,7 +105,6 @@ public class SubBabaApi {
      * @param webTimeoutRead
      */
     public void setTimeout(int webTimeoutConnect, int webTimeoutRead) {
-        WebBrowser.setWebTimeoutConnect(webTimeoutConnect);
-        WebBrowser.setWebTimeoutRead(webTimeoutRead);
+        httpClient.setTimeouts(webTimeoutConnect, webTimeoutRead);
     }
 }

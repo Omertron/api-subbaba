@@ -39,6 +39,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.yamj.api.common.http.CommonHttpClient;
 
 public final class ApiBuilder {
 
@@ -51,6 +52,7 @@ public final class ApiBuilder {
     // Jackson JSON configuration
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static String apiKey;
+    private static CommonHttpClient httpClient;
 
     private ApiBuilder() {
         throw new UnsupportedOperationException("Class cannot be initialised");
@@ -58,6 +60,10 @@ public final class ApiBuilder {
 
     public static void setApiKey(String newApiKey) {
         apiKey = newApiKey;
+    }
+
+    public static void setHttpClient(CommonHttpClient httpClient) {
+        ApiBuilder.httpClient = httpClient;
     }
 
     /**
@@ -181,7 +187,7 @@ public final class ApiBuilder {
      */
     private static <T> T getWrapper(Class<T> clazz, SearchFunction function, String query, SearchType searchType) {
         try {
-            String webPage = WebBrowser.request(buildUrl(function, query, searchType));
+            String webPage = httpClient.requestContent(buildUrl(function, query, searchType));
             Object response = MAPPER.readValue(webPage, clazz);
             return clazz.cast(response);
         } catch (JsonParseException ex) {
