@@ -24,6 +24,7 @@ import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaMovie;
 import com.omertron.subbabaapi.tools.ApiBuilder;
 import java.util.List;
+import javax.xml.ws.WebServiceException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,8 +43,13 @@ public class SubBabaApi {
 
     public SubBabaApi(String apiKey, CommonHttpClient httpClient) {
         if (StringUtils.isBlank(apiKey)) {
-            return;
+            throw new WebServiceException("Invalid API Key");
         }
+
+        if (httpClient == null) {
+            throw new WebServiceException("Invalid HttpClient provided");
+        }
+        this.httpClient = httpClient;
 
         ApiBuilder.setApiKey(apiKey);
         ApiBuilder.setHttpClient(httpClient);
@@ -95,7 +101,11 @@ public class SubBabaApi {
      * @param password
      */
     public void setProxy(String host, int port, String username, String password) {
-        httpClient.setProxy(host, port, username, password);
+        if (httpClient == null) {
+            throw new WebServiceException("Failed to set proxy information");
+        } else {
+            httpClient.setProxy(host, port, username, password);
+        }
     }
 
     /**
@@ -105,6 +115,10 @@ public class SubBabaApi {
      * @param webTimeoutRead
      */
     public void setTimeout(int webTimeoutConnect, int webTimeoutRead) {
-        httpClient.setTimeouts(webTimeoutConnect, webTimeoutRead);
+        if (httpClient == null) {
+            throw new WebServiceException("Failed to set timeout information");
+        } else {
+            httpClient.setTimeouts(webTimeoutConnect, webTimeoutRead);
+        }
     }
 }
