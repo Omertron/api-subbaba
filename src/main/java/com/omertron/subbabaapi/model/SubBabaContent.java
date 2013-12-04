@@ -20,6 +20,7 @@
 package com.omertron.subbabaapi.model;
 
 import java.io.Serializable;
+import org.apache.commons.lang3.StringUtils;
 
 public class SubBabaContent extends AbstractJsonMapping implements Serializable {
 
@@ -44,7 +45,7 @@ public class SubBabaContent extends AbstractJsonMapping implements Serializable 
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.type = StringUtils.trimToEmpty(type);
     }
 
     public void setVotes(int votes) {
@@ -68,19 +69,19 @@ public class SubBabaContent extends AbstractJsonMapping implements Serializable 
     }
 
     public void setUploaderName(String uploaderName) {
-        this.uploaderName = uploaderName;
+        this.uploaderName = StringUtils.trimToEmpty(uploaderName);
     }
 
     public void setUrl(String url) {
-        this.url = url;
+        this.url = StringUtils.trimToEmpty(url);
     }
 
     public void setDownload(String download) {
-        this.download = download;
+        this.download = StringUtils.trimToEmpty(download);
     }
 
     public void setUploadDate(String uploadDate) {
-        this.uploadDate = uploadDate;
+        this.uploadDate = StringUtils.trimToEmpty(uploadDate);
     }
     //</editor-fold>
 

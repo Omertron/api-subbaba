@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
 @JsonRootName("movie")
 public class SubBabaMovie extends AbstractJsonMapping implements Serializable {
@@ -41,11 +42,11 @@ public class SubBabaMovie extends AbstractJsonMapping implements Serializable {
 
     //<editor-fold defaultstate="collapsed" desc="Setter Methods">
     public void setOriginalName(String originalName) {
-        this.originalName = originalName;
+        this.originalName = StringUtils.trimToEmpty(originalName);
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.type = StringUtils.trimToEmpty(type);
     }
 
     public void setId(int id) {
@@ -53,7 +54,7 @@ public class SubBabaMovie extends AbstractJsonMapping implements Serializable {
     }
 
     public void setImdbId(String imdbId) {
-        this.imdbId = imdbId;
+        this.imdbId = StringUtils.trimToEmpty(imdbId);
     }
 
     public void setContent(List<SubBabaContent> content) {

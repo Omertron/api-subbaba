@@ -25,6 +25,7 @@ import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaResult;
 import java.util.Collections;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
 public class SubBabaWrapper extends AbstractJsonMapping {
 
@@ -40,7 +41,7 @@ public class SubBabaWrapper extends AbstractJsonMapping {
 
     //<editor-fold defaultstate="collapsed" desc="Setter Methods">
     public void setSearchTerm(String searchTerm) {
-        this.searchTerm = searchTerm;
+        this.searchTerm = StringUtils.trimToEmpty(searchTerm);
     }
 
     public void setTotalResults(int totalResults) {
@@ -52,7 +53,7 @@ public class SubBabaWrapper extends AbstractJsonMapping {
     }
 
     public void setImdbId(String imdbId) {
-        this.imdbId = imdbId;
+        this.imdbId = StringUtils.trimToEmpty(imdbId);
     }
 
     public void setResults(List<SubBabaResult> results) {

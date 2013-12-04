@@ -20,6 +20,7 @@
 package com.omertron.subbabaapi.model;
 
 import java.io.Serializable;
+import org.apache.commons.lang3.StringUtils;
 
 public class SubBabaFileInfo extends AbstractJsonMapping implements Serializable {
 
@@ -40,7 +41,7 @@ public class SubBabaFileInfo extends AbstractJsonMapping implements Serializable
     }
 
     public void setFileSize(String fileSize) {
-        this.fileSize = fileSize;
+        this.fileSize = StringUtils.trimToEmpty(fileSize);
     }
     //</editor-fold>
 
