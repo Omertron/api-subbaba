@@ -142,7 +142,8 @@ public final class ApiBuilder {
         if (StringUtils.isNotBlank(query)) {
             try {
                 sbURL.append(URLEncoder.encode(query.toLowerCase(), "UTF-8"));
-            } catch (UnsupportedEncodingException ignore) {
+            } catch (UnsupportedEncodingException ex) {
+                LOG.trace("Failed to encode query: " + query, ex);
                 // Failed to encode the string, so try it un-encoded
                 sbURL.append(query);
             }
@@ -157,7 +158,7 @@ public final class ApiBuilder {
         try {
             return new URL(sbURL.toString());
         } catch (MalformedURLException ex) {
-            LOG.trace(LOGMESSAGE + "Failed to convert string to URL: " + ex.getMessage());
+            LOG.trace(LOGMESSAGE + "Failed to convert string to URL: " + ex.getMessage(), ex);
             return null;
         }
     }
@@ -191,11 +192,11 @@ public final class ApiBuilder {
             Object response = MAPPER.readValue(webPage, clazz);
             return clazz.cast(response);
         } catch (JsonParseException ex) {
-            LOG.warn(LOGMESSAGE + "JsonParseException: " + ex.getMessage());
+            LOG.warn(LOGMESSAGE + "JsonParseException: " + ex.getMessage(), ex);
         } catch (JsonMappingException ex) {
-            LOG.warn(LOGMESSAGE + "JsonMappingException: " + ex.getMessage());
+            LOG.warn(LOGMESSAGE + "JsonMappingException: " + ex.getMessage(), ex);
         } catch (IOException ex) {
-            LOG.warn(LOGMESSAGE + "IOException: " + ex.getMessage());
+            LOG.warn(LOGMESSAGE + "IOException: " + ex.getMessage(), ex);
         }
         return null;
     }
