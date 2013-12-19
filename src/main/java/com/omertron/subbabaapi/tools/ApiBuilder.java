@@ -33,6 +33,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,7 +45,7 @@ import org.yamj.api.common.http.CommonHttpClient;
 public final class ApiBuilder {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApiBuilder.class);
-    private static final String LOGMESSAGE = "SubBabaApi: ";
+    private static final String DEFAULT_CHARSET = "UTF-8";
     // API parts
     private static final String API_BASE = "http://www.sub-baba.com/api/";
     private static final String API_TYPE = "/json/";
@@ -154,11 +155,11 @@ public final class ApiBuilder {
             sbURL.append(searchType.getType());
         }
 
-        LOG.trace(LOGMESSAGE + "URL = " + sbURL.toString());
+        LOG.trace("URL: {}", sbURL.toString());
         try {
             return new URL(sbURL.toString());
         } catch (MalformedURLException ex) {
-            LOG.trace(LOGMESSAGE + "Failed to convert string to URL: " + ex.getMessage(), ex);
+            LOG.trace("Failed to convert string to URL: {}", ex.getMessage(), ex);
             return null;
         }
     }
@@ -188,15 +189,15 @@ public final class ApiBuilder {
      */
     private static <T> T getWrapper(Class<T> clazz, SearchFunction function, String query, SearchType searchType) {
         try {
-            String webPage = httpClient.requestContent(buildUrl(function, query, searchType));
+            String webPage = httpClient.requestContent(buildUrl(function, query, searchType), Charset.forName(DEFAULT_CHARSET));
             Object response = MAPPER.readValue(webPage, clazz);
             return clazz.cast(response);
         } catch (JsonParseException ex) {
-            LOG.warn(LOGMESSAGE + "JsonParseException: " + ex.getMessage(), ex);
+            LOG.warn("JsonParseException: {}", ex.getMessage(), ex);
         } catch (JsonMappingException ex) {
-            LOG.warn(LOGMESSAGE + "JsonMappingException: " + ex.getMessage(), ex);
+            LOG.warn("JsonMappingException: {}", ex.getMessage(), ex);
         } catch (IOException ex) {
-            LOG.warn(LOGMESSAGE + "IOException: " + ex.getMessage(), ex);
+            LOG.warn("IOException: {}", ex.getMessage(), ex);
         }
         return null;
     }

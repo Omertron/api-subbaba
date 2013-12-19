@@ -26,14 +26,11 @@ import com.omertron.subbabaapi.tools.ApiBuilder;
 import java.util.List;
 import javax.xml.ws.WebServiceException;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.yamj.api.common.http.CommonHttpClient;
 import org.yamj.api.common.http.DefaultPoolingHttpClient;
 
 public class SubBabaApi {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SubBabaApi.class);
     private CommonHttpClient httpClient;
 
     public SubBabaApi(String apiKey) {
@@ -84,12 +81,7 @@ public class SubBabaApi {
      * @return
      */
     public SubBabaContent fetchInfoByContentId(String contentId) {
-        SubBabaContent sbc = ApiBuilder.fetchInfoByContentId(contentId);
-
-        if (sbc != null) {
-            LOG.info(sbc.toString());
-        }
-        return sbc;
+        return ApiBuilder.fetchInfoByContentId(contentId);
     }
 
     /**
