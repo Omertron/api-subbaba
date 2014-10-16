@@ -19,6 +19,8 @@
  */
 package com.omertron.subbabaapi.enumerations;
 
+import org.apache.commons.lang3.StringUtils;
+
 public enum SearchType {
 
     ALL("all"),
@@ -42,17 +44,21 @@ public enum SearchType {
      * @return
      */
     public static SearchType fromString(String type) {
-        if (type != null) {
-            try {
-                for (SearchType searchType : SearchType.values()) {
-                    if (type.equalsIgnoreCase(searchType.type)) {
-                        return searchType;
-                    }
-                }
-            } catch (IllegalArgumentException ex) {
-                throw new IllegalArgumentException("SearchType '" + type + "' does not exist", ex);
-            }
+        if (StringUtils.isBlank(type)) {
+            throw new IllegalArgumentException("SearchType is null");
         }
-        throw new IllegalArgumentException("SearchType is null");
+
+        try {
+            for (SearchType searchType : SearchType.values()) {
+                if (type.equalsIgnoreCase(searchType.type)) {
+                    return searchType;
+                }
+            }
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalArgumentException("SearchType '" + type + "' does not exist", ex);
+        }
+
+        // We did not find the search type
+        throw new IllegalArgumentException("SearchType '" + type + "' does not exist");
     }
 }

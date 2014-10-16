@@ -77,7 +77,7 @@ public final class ApiBuilder {
     public static List<SubBabaMovie> searchByEnglishName(String query, SearchType searchType) {
         SubBabaWrapper sbw = getWrapper(SubBabaWrapper.class, SearchFunction.NAME, query, searchType);
         if (sbw == null) {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
 
         List<SubBabaMovie> movies = new ArrayList<SubBabaMovie>();

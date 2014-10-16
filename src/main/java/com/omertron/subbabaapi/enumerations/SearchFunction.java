@@ -19,7 +19,10 @@
  */
 package com.omertron.subbabaapi.enumerations;
 
+import org.apache.commons.lang3.StringUtils;
+
 public enum SearchFunction {
+
     NAME("search"),
     IMDB("imdb"),
     SUBBABA("get_content");
@@ -41,17 +44,20 @@ public enum SearchFunction {
      * @return
      */
     public static SearchFunction fromString(String function) {
-        if (function != null) {
-            try {
-                for (SearchFunction searchFunction : SearchFunction.values()) {
-                    if (function.equalsIgnoreCase(searchFunction.type)) {
-                        return searchFunction;
-                    }
-                }
-            } catch (IllegalArgumentException ex) {
-                throw new IllegalArgumentException("SearchFunction '" + function + "' does not exist", ex);
-            }
+        if (StringUtils.isBlank(function)) {
+            throw new IllegalArgumentException("SearchFunction is null");
         }
+
+        try {
+            for (SearchFunction searchFunction : SearchFunction.values()) {
+                if (function.equalsIgnoreCase(searchFunction.type)) {
+                    return searchFunction;
+                }
+            }
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalArgumentException("SearchFunction '" + function + "' does not exist", ex);
+        }
+
         throw new IllegalArgumentException("SearchFunction is null");
     }
 
