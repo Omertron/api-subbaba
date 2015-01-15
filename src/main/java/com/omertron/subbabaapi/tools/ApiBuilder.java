@@ -41,6 +41,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yamj.api.common.http.CommonHttpClient;
+import org.yamj.api.common.http.DigestedResponse;
 
 public final class ApiBuilder {
 
@@ -189,8 +190,14 @@ public final class ApiBuilder {
      */
     private static <T> T getWrapper(Class<T> clazz, SearchFunction function, String query, SearchType searchType) {
         try {
-            String webPage = httpClient.requestContent(buildUrl(function, query, searchType), Charset.forName(DEFAULT_CHARSET));
-            Object response = MAPPER.readValue(webPage, clazz);
+            DigestedResponse webPage = httpClient.requestContent(buildUrl(function, query, searchType), Charset.forName(DEFAULT_CHARSET));
+            if (webPage.getStatusCode() >= 500) {
+                throw new IOException("IOError: " + webPage.getStatusCode());
+            } else if (webPage.getStatusCode() >= 300) {
+                throw new IOException("IOError: " + webPage.getStatusCode());
+            }
+
+            Object response = MAPPER.readValue(webPage.getContent(), clazz);
             return clazz.cast(response);
         } catch (JsonParseException ex) {
             LOG.warn("JsonParseException: {}", ex.getMessage(), ex);
