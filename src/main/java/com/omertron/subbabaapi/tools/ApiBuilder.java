@@ -145,7 +145,7 @@ public final class ApiBuilder {
             try {
                 sbURL.append(URLEncoder.encode(query.toLowerCase(), "UTF-8"));
             } catch (UnsupportedEncodingException ex) {
-                LOG.trace("Failed to encode query: " + query, ex);
+                LOG.trace("Failed to encode query: {}", query, ex);
                 // Failed to encode the string, so try it un-encoded
                 sbURL.append(query);
             }
