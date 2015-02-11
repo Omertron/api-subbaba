@@ -22,6 +22,7 @@ package com.omertron.subbabaapi.tools;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.omertron.subbabaapi.SubBabaException;
 import com.omertron.subbabaapi.enumerations.SearchFunction;
 import com.omertron.subbabaapi.enumerations.SearchType;
 import com.omertron.subbabaapi.model.SubBabaContent;
@@ -44,6 +45,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.yamj.api.common.exception.ApiExceptionType;
 import org.yamj.api.common.http.DigestedResponse;
 import org.yamj.api.common.http.DigestedResponseReader;
 import org.yamj.api.common.http.UserAgentSelector;
@@ -61,6 +63,8 @@ public final class ApiBuilder {
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static String apiKey;
     private static CloseableHttpClient httpClient;
+    private static final int HTTP_STATUS_300 = 300;
+    private static final int HTTP_STATUS_500 = 500;
 
     private ApiBuilder() {
         throw new UnsupportedOperationException("Class cannot be initialised");
@@ -80,8 +84,9 @@ public final class ApiBuilder {
      * @param query
      * @param searchType
      * @return
+     * @throws com.omertron.subbabaapi.SubBabaException
      */
-    public static List<SubBabaMovie> searchByEnglishName(String query, SearchType searchType) {
+    public static List<SubBabaMovie> searchByEnglishName(String query, SearchType searchType) throws SubBabaException {
         SubBabaWrapper sbw = getWrapper(SubBabaWrapper.class, SearchFunction.NAME, query, searchType);
         if (sbw == null) {
             return Collections.emptyList();
@@ -100,8 +105,9 @@ public final class ApiBuilder {
      *
      * @param query
      * @return
+     * @throws com.omertron.subbabaapi.SubBabaException
      */
-    public static SubBabaContent fetchInfoByContentId(String query) {
+    public static SubBabaContent fetchInfoByContentId(String query) throws SubBabaException {
         SubBabaWrapper sbw = getWrapper(SubBabaWrapper.class, SearchFunction.SUBBABA, query);
 
         if (sbw == null) {
@@ -117,8 +123,9 @@ public final class ApiBuilder {
      * @param query
      * @param searchType
      * @return
+     * @throws com.omertron.subbabaapi.SubBabaException
      */
-    public static SubBabaMovie searchByImdbId(String query, SearchType searchType) {
+    public static SubBabaMovie searchByImdbId(String query, SearchType searchType) throws SubBabaException {
         SubBabaWrapper sbw = getWrapper(SubBabaWrapper.class, SearchFunction.IMDB, query, searchType);
         if (sbw == null) {
             return new SubBabaMovie();
@@ -141,7 +148,7 @@ public final class ApiBuilder {
      * @param searchType
      * @return
      */
-    private static URL buildUrl(SearchFunction function, String query, SearchType searchType) {
+    private static URL buildUrl(SearchFunction function, String query, SearchType searchType) throws SubBabaException {
         StringBuilder sbURL = new StringBuilder(API_BASE);
         sbURL.append(apiKey);
         sbURL.append(API_TYPE);
@@ -166,8 +173,7 @@ public final class ApiBuilder {
         try {
             return new URL(sbURL.toString());
         } catch (MalformedURLException ex) {
-            LOG.trace("Failed to convert string to URL: {}", ex.getMessage(), ex);
-            return null;
+            throw new SubBabaException(ApiExceptionType.INVALID_URL, "Failed to convert string to URL", sbURL.toString(), ex);
         }
     }
 
@@ -180,7 +186,7 @@ public final class ApiBuilder {
      * @param query
      * @return
      */
-    private static <T> T getWrapper(Class<T> clazz, SearchFunction function, String query) {
+    private static <T> T getWrapper(Class<T> clazz, SearchFunction function, String query) throws SubBabaException {
         return getWrapper(clazz, function, query, null);
     }
 
@@ -194,30 +200,30 @@ public final class ApiBuilder {
      * @param searchType
      * @return
      */
-    private static <T> T getWrapper(Class<T> clazz, SearchFunction function, String query, SearchType searchType) {
+    private static <T> T getWrapper(Class<T> clazz, SearchFunction function, String query, SearchType searchType) throws SubBabaException {
+        URL url = buildUrl(function, query, searchType);
         try {
-            final HttpGet httpGet = new HttpGet(buildUrl(function, query, searchType).toURI());
+            final HttpGet httpGet = new HttpGet(url.toURI());
             httpGet.addHeader("accept", "application/json");
             httpGet.addHeader(HTTP.USER_AGENT, UserAgentSelector.randomUserAgent());
 
             final DigestedResponse response = DigestedResponseReader.requestContent(httpClient, httpGet, CHARSET);
-            if (response.getStatusCode() >= 500) {
-                throw new IOException("IOError: " + response.getStatusCode());
-            } else if (response.getStatusCode() >= 300) {
-                throw new IOException("IOError: " + response.getStatusCode());
+            if (response.getStatusCode() >= HTTP_STATUS_500) {
+                throw new SubBabaException(ApiExceptionType.HTTP_503_ERROR, response.getContent(), response.getStatusCode(), url);
+            } else if (response.getStatusCode() >= HTTP_STATUS_300) {
+                throw new SubBabaException(ApiExceptionType.HTTP_404_ERROR, response.getContent(), response.getStatusCode(), url);
             }
 
             Object wrapper = MAPPER.readValue(response.getContent(), clazz);
             return clazz.cast(wrapper);
         } catch (JsonParseException ex) {
-            LOG.warn("JsonParseException: {}", ex.getMessage(), ex);
+            throw new SubBabaException(ApiExceptionType.MAPPING_FAILED, "Failed to parse object", url, ex);
         } catch (JsonMappingException ex) {
-            LOG.warn("JsonMappingException: {}", ex.getMessage(), ex);
+            throw new SubBabaException(ApiExceptionType.MAPPING_FAILED, "Failed to parse object", url, ex);
         } catch (IOException ex) {
-            LOG.warn("IOException: {}", ex.getMessage(), ex);
+            throw new SubBabaException(ApiExceptionType.CONNECTION_ERROR, "Error retrieving URL", url, ex);
         } catch (URISyntaxException ex) {
-            LOG.warn("URISyntaxException: {}", ex.getMessage(), ex);
+            throw new SubBabaException(ApiExceptionType.INVALID_URL, "Invalid URL", url, ex);
         }
-        return null;
     }
 }

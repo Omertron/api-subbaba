@@ -24,29 +24,39 @@ import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaMovie;
 import com.omertron.subbabaapi.tools.ApiBuilder;
 import java.util.List;
-import javax.xml.ws.WebServiceException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.yamj.api.common.exception.ApiExceptionType;
 import org.yamj.api.common.http.SimpleHttpClientBuilder;
 
 public class SubBabaApi {
 
-    private CloseableHttpClient httpClient;
-
-    public SubBabaApi(String apiKey) {
+    /**
+     * Create a new instance of the API with the provided API key and a default HttpClient
+     *
+     * @param apiKey
+     * @throws SubBabaException
+     */
+    public SubBabaApi(String apiKey) throws SubBabaException {
         // Use a default pooling client if one is not provided
         this(apiKey, new SimpleHttpClientBuilder().build());
     }
 
-    public SubBabaApi(String apiKey, CloseableHttpClient httpClient) {
+    /**
+     * Create a new instance of the API with the provided API key and HttpClient
+     *
+     * @param apiKey
+     * @param httpClient
+     * @throws SubBabaException
+     */
+    public SubBabaApi(String apiKey, CloseableHttpClient httpClient) throws SubBabaException {
         if (StringUtils.isBlank(apiKey)) {
-            throw new WebServiceException("Invalid API Key");
+            throw new SubBabaException(ApiExceptionType.AUTH_FAILURE, "Invalid API Key");
         }
 
         if (httpClient == null) {
-            throw new WebServiceException("Invalid HttpClient provided");
+            throw new SubBabaException(ApiExceptionType.HTTP_CLIENT_MISSING, "Invalid HttpClient provided");
         }
-        this.httpClient = httpClient;
 
         ApiBuilder.setApiKey(apiKey);
         ApiBuilder.setHttpClient(httpClient);
@@ -58,8 +68,9 @@ public class SubBabaApi {
      * @param movieName
      * @param searchType
      * @return
+     * @throws com.omertron.subbabaapi.SubBabaException
      */
-    public List<SubBabaMovie> searchByEnglishName(String movieName, SearchType searchType) {
+    public List<SubBabaMovie> searchByEnglishName(String movieName, SearchType searchType) throws SubBabaException {
         return ApiBuilder.searchByEnglishName(movieName, searchType);
     }
 
@@ -69,8 +80,9 @@ public class SubBabaApi {
      * @param imdbId
      * @param searchType
      * @return
+     * @throws com.omertron.subbabaapi.SubBabaException
      */
-    public SubBabaMovie searchByImdbId(String imdbId, SearchType searchType) {
+    public SubBabaMovie searchByImdbId(String imdbId, SearchType searchType) throws SubBabaException {
         return ApiBuilder.searchByImdbId(imdbId, searchType);
     }
 
@@ -79,8 +91,9 @@ public class SubBabaApi {
      *
      * @param contentId
      * @return
+     * @throws com.omertron.subbabaapi.SubBabaException
      */
-    public SubBabaContent fetchInfoByContentId(String contentId) {
+    public SubBabaContent fetchInfoByContentId(String contentId) throws SubBabaException {
         return ApiBuilder.fetchInfoByContentId(contentId);
     }
 }
