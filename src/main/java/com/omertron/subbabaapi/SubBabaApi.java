@@ -26,19 +26,19 @@ import com.omertron.subbabaapi.tools.ApiBuilder;
 import java.util.List;
 import javax.xml.ws.WebServiceException;
 import org.apache.commons.lang3.StringUtils;
-import org.yamj.api.common.http.CommonHttpClient;
-import org.yamj.api.common.http.DefaultPoolingHttpClient;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.yamj.api.common.http.SimpleHttpClientBuilder;
 
 public class SubBabaApi {
 
-    private CommonHttpClient httpClient;
+    private CloseableHttpClient httpClient;
 
     public SubBabaApi(String apiKey) {
         // Use a default pooling client if one is not provided
-        this(apiKey, new DefaultPoolingHttpClient());
+        this(apiKey, new SimpleHttpClientBuilder().build());
     }
 
-    public SubBabaApi(String apiKey, CommonHttpClient httpClient) {
+    public SubBabaApi(String apiKey, CloseableHttpClient httpClient) {
         if (StringUtils.isBlank(apiKey)) {
             throw new WebServiceException("Invalid API Key");
         }
@@ -82,35 +82,5 @@ public class SubBabaApi {
      */
     public SubBabaContent fetchInfoByContentId(String contentId) {
         return ApiBuilder.fetchInfoByContentId(contentId);
-    }
-
-    /**
-     * Set the web browser proxy information
-     *
-     * @param host
-     * @param port
-     * @param username
-     * @param password
-     */
-    public void setProxy(String host, int port, String username, String password) {
-        if (httpClient == null) {
-            throw new WebServiceException("Failed to set proxy information");
-        } else {
-            httpClient.setProxy(host, port, username, password);
-        }
-    }
-
-    /**
-     * Set the web browser timeout settings
-     *
-     * @param webTimeoutConnect
-     * @param webTimeoutRead
-     */
-    public void setTimeout(int webTimeoutConnect, int webTimeoutRead) {
-        if (httpClient == null) {
-            throw new WebServiceException("Failed to set timeout information");
-        } else {
-            httpClient.setTimeouts(webTimeoutConnect, webTimeoutRead);
-        }
     }
 }

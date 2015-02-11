@@ -31,6 +31,7 @@ import com.omertron.subbabaapi.wrapper.SubBabaWrapper;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -38,15 +39,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.protocol.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yamj.api.common.http.CommonHttpClient;
 import org.yamj.api.common.http.DigestedResponse;
+import org.yamj.api.common.http.DigestedResponseReader;
+import org.yamj.api.common.http.UserAgentSelector;
 
 public final class ApiBuilder {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApiBuilder.class);
     private static final String DEFAULT_CHARSET = "UTF-8";
+    private static final Charset CHARSET = Charset.forName(DEFAULT_CHARSET);
     // API parts
     private static final String API_BASE = "http://www.sub-baba.com/api/";
     private static final String API_TYPE = "/json/";
@@ -54,7 +60,7 @@ public final class ApiBuilder {
     // Jackson JSON configuration
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static String apiKey;
-    private static CommonHttpClient httpClient;
+    private static CloseableHttpClient httpClient;
 
     private ApiBuilder() {
         throw new UnsupportedOperationException("Class cannot be initialised");
@@ -64,7 +70,7 @@ public final class ApiBuilder {
         apiKey = newApiKey;
     }
 
-    public static void setHttpClient(CommonHttpClient httpClient) {
+    public static void setHttpClient(CloseableHttpClient httpClient) {
         ApiBuilder.httpClient = httpClient;
     }
 
@@ -190,21 +196,27 @@ public final class ApiBuilder {
      */
     private static <T> T getWrapper(Class<T> clazz, SearchFunction function, String query, SearchType searchType) {
         try {
-            DigestedResponse webPage = httpClient.requestContent(buildUrl(function, query, searchType), Charset.forName(DEFAULT_CHARSET));
-            if (webPage.getStatusCode() >= 500) {
-                throw new IOException("IOError: " + webPage.getStatusCode());
-            } else if (webPage.getStatusCode() >= 300) {
-                throw new IOException("IOError: " + webPage.getStatusCode());
+            final HttpGet httpGet = new HttpGet(buildUrl(function, query, searchType).toURI());
+            httpGet.addHeader("accept", "application/json");
+            httpGet.addHeader(HTTP.USER_AGENT, UserAgentSelector.randomUserAgent());
+
+            final DigestedResponse response = DigestedResponseReader.requestContent(httpClient, httpGet, CHARSET);
+            if (response.getStatusCode() >= 500) {
+                throw new IOException("IOError: " + response.getStatusCode());
+            } else if (response.getStatusCode() >= 300) {
+                throw new IOException("IOError: " + response.getStatusCode());
             }
 
-            Object response = MAPPER.readValue(webPage.getContent(), clazz);
-            return clazz.cast(response);
+            Object wrapper = MAPPER.readValue(response.getContent(), clazz);
+            return clazz.cast(wrapper);
         } catch (JsonParseException ex) {
             LOG.warn("JsonParseException: {}", ex.getMessage(), ex);
         } catch (JsonMappingException ex) {
             LOG.warn("JsonMappingException: {}", ex.getMessage(), ex);
         } catch (IOException ex) {
             LOG.warn("IOException: {}", ex.getMessage(), ex);
+        } catch (URISyntaxException ex) {
+            LOG.warn("URISyntaxException: {}", ex.getMessage(), ex);
         }
         return null;
     }
