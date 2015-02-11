@@ -38,7 +38,7 @@ public class SubBabaApiTest {
     private static final String APIKEY = "9f0942674ca1387875c0e4cad608871d";
     private final SubBabaApi subbaba;
 
-    public SubBabaApiTest() {
+    public SubBabaApiTest() throws SubBabaException {
         subbaba = new SubBabaApi(APIKEY);
     }
 
@@ -61,9 +61,10 @@ public class SubBabaApiTest {
 
     /**
      * Test of searchByEnglishName method, of class SubBabaApi.
+     * @throws com.omertron.subbabaapi.SubBabaException
      */
     @Test
-    public void testSearchByEnglishName() {
+    public void testSearchByEnglishName() throws SubBabaException {
         LOG.info("searchByEnglishName");
         String movieName = "Alice in Wonderland";
         SearchType searchType = SearchType.ALL;
@@ -75,9 +76,10 @@ public class SubBabaApiTest {
 
     /**
      * Test of searchByImdbId method, of class SubBabaApi.
+     * @throws com.omertron.subbabaapi.SubBabaException
      */
     @Test
-    public void testSearchByImdbId() {
+    public void testSearchByImdbId() throws SubBabaException {
         LOG.info("searchByImdbId");
         String imdbId = "tt1014759";
         SearchType searchType = SearchType.ALL;
@@ -88,9 +90,10 @@ public class SubBabaApiTest {
 
     /**
      * Test of fetchInfoByContentId method, of class SubBabaApi.
+     * @throws com.omertron.subbabaapi.SubBabaException
      */
     @Test
-    public void testFetchInfoByContentId() {
+    public void testFetchInfoByContentId() throws SubBabaException {
         LOG.info("fetchInfoByContentId");
         String contentId = "5996";
         SubBabaContent result = subbaba.fetchInfoByContentId(contentId);
