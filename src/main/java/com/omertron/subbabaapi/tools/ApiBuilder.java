@@ -40,8 +40,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +62,7 @@ public final class ApiBuilder {
     // Jackson JSON configuration
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static String apiKey;
-    private static CloseableHttpClient httpClient;
+    private static HttpClient httpClient;
     private static final int HTTP_STATUS_300 = 300;
     private static final int HTTP_STATUS_500 = 500;
 
@@ -74,7 +74,7 @@ public final class ApiBuilder {
         apiKey = newApiKey;
     }
 
-    public static void setHttpClient(CloseableHttpClient httpClient) {
+    public static void setHttpClient(HttpClient httpClient) {
         ApiBuilder.httpClient = httpClient;
     }
 

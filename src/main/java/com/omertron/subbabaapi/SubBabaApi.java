@@ -25,7 +25,7 @@ import com.omertron.subbabaapi.model.SubBabaMovie;
 import com.omertron.subbabaapi.tools.ApiBuilder;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.client.HttpClient;
 import org.yamj.api.common.exception.ApiExceptionType;
 import org.yamj.api.common.http.SimpleHttpClientBuilder;
 
@@ -49,7 +49,7 @@ public class SubBabaApi {
      * @param httpClient
      * @throws SubBabaException
      */
-    public SubBabaApi(String apiKey, CloseableHttpClient httpClient) throws SubBabaException {
+    public SubBabaApi(String apiKey, HttpClient httpClient) throws SubBabaException {
         if (StringUtils.isBlank(apiKey)) {
             throw new SubBabaException(ApiExceptionType.AUTH_FAILURE, "Invalid API Key");
         }
