@@ -92,7 +92,7 @@ public final class ApiBuilder {
             return Collections.emptyList();
         }
 
-        List<SubBabaMovie> movies = new ArrayList<SubBabaMovie>();
+        List<SubBabaMovie> movies = new ArrayList<>();
         for (SubBabaResult result : sbw.getResults()) {
             movies.add(result.getMovie());
         }
@@ -203,6 +203,25 @@ public final class ApiBuilder {
     private static <T> T getWrapper(Class<T> clazz, SearchFunction function, String query, SearchType searchType) throws SubBabaException {
         URL url = buildUrl(function, query, searchType);
         try {
+            final DigestedResponse response = getResponse(url);
+            Object wrapper = MAPPER.readValue(response.getContent(), clazz);
+            return clazz.cast(wrapper);
+        } catch (JsonParseException | JsonMappingException ex) {
+            throw new SubBabaException(ApiExceptionType.MAPPING_FAILED, "Failed to parse object", url, ex);
+        } catch (IOException ex) {
+            throw new SubBabaException(ApiExceptionType.CONNECTION_ERROR, "Error retrieving URL", url, ex);
+        }
+    }
+
+    /**
+     * Get the DigestedResponse from the URL
+     *
+     * @param url
+     * @return
+     * @throws SubBabaException
+     */
+    private static DigestedResponse getResponse(URL url) throws SubBabaException {
+        try {
             final HttpGet httpGet = new HttpGet(url.toURI());
             httpGet.addHeader("accept", "application/json");
             httpGet.addHeader(HTTP.USER_AGENT, UserAgentSelector.randomUserAgent());
@@ -213,13 +232,7 @@ public final class ApiBuilder {
             } else if (response.getStatusCode() >= HTTP_STATUS_300) {
                 throw new SubBabaException(ApiExceptionType.HTTP_404_ERROR, response.getContent(), response.getStatusCode(), url);
             }
-
-            Object wrapper = MAPPER.readValue(response.getContent(), clazz);
-            return clazz.cast(wrapper);
-        } catch (JsonParseException ex) {
-            throw new SubBabaException(ApiExceptionType.MAPPING_FAILED, "Failed to parse object", url, ex);
-        } catch (JsonMappingException ex) {
-            throw new SubBabaException(ApiExceptionType.MAPPING_FAILED, "Failed to parse object", url, ex);
+            return response;
         } catch (IOException ex) {
             throw new SubBabaException(ApiExceptionType.CONNECTION_ERROR, "Error retrieving URL", url, ex);
         } catch (URISyntaxException ex) {
