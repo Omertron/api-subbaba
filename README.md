@@ -5,9 +5,9 @@ Author: Stuart Boston (Omertron AT Gmail DOT com)
 
 This API uses the SubBaba API as specified here: http://www.sub-baba.com/api-wizard/
 
-Originally written for use by YetAnotherMovieJukebox ([YAMJ](https://github.com/YAMJ/yamj-v2)), but anyone can feel free to use it for other projects as well.
+Originally written for use by YetAnotherMovieJukebox ([YAMJv2](https://github.com/YAMJ/yamj-v2) & [YAMJv3](https://github.com/YAMJ/yamj-v3)), but anyone can feel free to use it for other projects as well.
 
-[![Build Status](http://jenkins.omertron.com/buildStatus/icon?job=API-SubBaba)](http://jenkins.omertron.com/job/API-SubBaba/)
+[![Build Status](http://jenkins.omertron.com/job/API-SubBaba/badge/icon)](http://jenkins.omertron.com/job/API-SubBaba)
 
 Project Logging
 ---------------
