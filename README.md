@@ -5,12 +5,9 @@ Author: Stuart Boston (Omertron AT Gmail DOT com)
 
 This API uses the SubBaba API as specified here: http://www.sub-baba.com/api-wizard/
 
-Originally written for use by YetAnotherMovieJukebox (YAMJ) http://code.google.com/p/moviejukebox/
-But anyone can feel free to use it for other projects as well.
+Originally written for use by YetAnotherMovieJukebox ([YAMJ](https://github.com/YAMJ/yamj-v2)), but anyone can feel free to use it for other projects as well.
 
-[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=Omertron&url=https://github.com/Omertron/api-subbaba&title=SubBaba API&language=&tags=github&category=software)
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Omertron/api-subbaba/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Build Status](http://jenkins.omertron.com/buildStatus/icon?job=API-SubBaba)](http://jenkins.omertron.com/job/API-SubBaba/)
 
 Project Logging
 ---------------
