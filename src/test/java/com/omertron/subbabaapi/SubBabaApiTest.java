@@ -26,9 +26,12 @@ import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SubBabaApiTest extends AbstractTests {
 
+    private static final Logger LOG = LoggerFactory.getLogger(SubBabaApiTest.class);
     private final SubBabaApi subbaba;
     private static final String NO_CONTENT_RETURNED = "No content returned";
 
