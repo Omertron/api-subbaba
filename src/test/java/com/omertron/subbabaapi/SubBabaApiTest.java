@@ -26,23 +26,19 @@ import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class SubBabaApiTest {
+public class SubBabaApiTest extends AbstractTests {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SubBabaApiTest.class);
-    private static final String APIKEY = "9f0942674ca1387875c0e4cad608871d";
     private final SubBabaApi subbaba;
     private static final String NO_CONTENT_RETURNED = "No content returned";
 
     public SubBabaApiTest() throws SubBabaException {
-        subbaba = new SubBabaApi(APIKEY);
+        subbaba = new SubBabaApi(getApiKey());
     }
 
     @BeforeClass
     public static void setUpClass() {
-        TestLogger.configure();
+        doConfiguration();
     }
 
     /**
