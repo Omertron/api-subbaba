@@ -23,10 +23,7 @@ import com.omertron.subbabaapi.enumerations.SearchType;
 import com.omertron.subbabaapi.model.SubBabaContent;
 import com.omertron.subbabaapi.model.SubBabaMovie;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -37,6 +34,7 @@ public class SubBabaApiTest {
     private static final Logger LOG = LoggerFactory.getLogger(SubBabaApiTest.class);
     private static final String APIKEY = "9f0942674ca1387875c0e4cad608871d";
     private final SubBabaApi subbaba;
+    private static final String NO_CONTENT_RETURNED = "No content returned";
 
     public SubBabaApiTest() throws SubBabaException {
         subbaba = new SubBabaApi(APIKEY);
@@ -44,23 +42,12 @@ public class SubBabaApiTest {
 
     @BeforeClass
     public static void setUpClass() {
-        TestLogger.Configure();
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
+        TestLogger.configure();
     }
 
     /**
      * Test of searchByEnglishName method, of class SubBabaApi.
+     *
      * @throws com.omertron.subbabaapi.SubBabaException
      */
     @Test
@@ -70,12 +57,13 @@ public class SubBabaApiTest {
         SearchType searchType = SearchType.ALL;
         List<SubBabaMovie> results = subbaba.searchByEnglishName(movieName, searchType);
 
-        assertNotNull("No content returned", results);
-        assertTrue("No movies returned", results.size() > 0);
+        assertNotNull(NO_CONTENT_RETURNED, results);
+        assertFalse("No movies returned", results.isEmpty());
     }
 
     /**
      * Test of searchByImdbId method, of class SubBabaApi.
+     *
      * @throws com.omertron.subbabaapi.SubBabaException
      */
     @Test
@@ -85,11 +73,12 @@ public class SubBabaApiTest {
         SearchType searchType = SearchType.ALL;
         SubBabaMovie result = subbaba.searchByImdbId(imdbId, searchType);
 
-        assertNotNull("No content returned", result);
+        assertNotNull(NO_CONTENT_RETURNED, result);
     }
 
     /**
      * Test of fetchInfoByContentId method, of class SubBabaApi.
+     *
      * @throws com.omertron.subbabaapi.SubBabaException
      */
     @Test
@@ -98,7 +87,7 @@ public class SubBabaApiTest {
         String contentId = "5996";
         SubBabaContent result = subbaba.fetchInfoByContentId(contentId);
 
-        assertNotNull("No content returned", result);
-        assertTrue("Wrong content returned", result.getType().equalsIgnoreCase("poster"));
+        assertNotNull(NO_CONTENT_RETURNED, result);
+        assertEquals("Wrong content returned", "poster", result.getType());
     }
 }
