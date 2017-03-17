@@ -42,13 +42,11 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.protocol.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yamj.api.common.exception.ApiExceptionType;
 import org.yamj.api.common.http.DigestedResponse;
 import org.yamj.api.common.http.DigestedResponseReader;
-import org.yamj.api.common.http.UserAgentSelector;
 
 public final class ApiBuilder {
 
@@ -224,9 +222,8 @@ public final class ApiBuilder {
         try {
             final HttpGet httpGet = new HttpGet(url.toURI());
             httpGet.addHeader("accept", "application/json");
-            httpGet.addHeader(HTTP.USER_AGENT, UserAgentSelector.randomUserAgent());
-
             final DigestedResponse response = DigestedResponseReader.requestContent(httpClient, httpGet, CHARSET);
+
             if (response.getStatusCode() >= HTTP_STATUS_500) {
                 throw new SubBabaException(ApiExceptionType.HTTP_503_ERROR, response.getContent(), response.getStatusCode(), url);
             } else if (response.getStatusCode() >= HTTP_STATUS_300) {

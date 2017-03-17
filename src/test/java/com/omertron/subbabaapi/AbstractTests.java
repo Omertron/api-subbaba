@@ -38,7 +38,6 @@ public class AbstractTests {
     /**
      * Do the initial configuration for the test cases
      *
-     * @throws MovieDbException
      */
     protected static final void doConfiguration() {
         TestLogger.configure();
